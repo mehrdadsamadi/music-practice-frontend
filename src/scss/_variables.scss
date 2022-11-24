@@ -1,0 +1,139 @@
+// font
+$font-family-base: Dana;
+$body-font-family: Dana;
+
+// Options
+$enable-shadows: true;
+$enable-gradients: true;
+$enable-negative-margins: true;
+// $treeview-node-level-width: 8px;
+
+// Cards
+$card-border-width: 0;
+$card-spacer-y: 1.6em;
+$card-spacer-x: 1.6em;
+
+// colors
+$white: #fff;
+// $primary: #990134;
+// $secondary: #F67280;
+$info: #3949ab;
+$success: #4CAF50;
+$warning: #FFC107;
+$danger: #990134;
+$light: #fff;
+$dark: #212121;
+$color-pack: false;
+
+$blue: #3259F5;
+$red : #990134;
+$yellow : #FFC107;
+$green : #4CAF50;
+$pink : #F67280;
+$primary: #F67280;
+$bg : #F6F6F8;
+$secondary: #F6F6F8;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $green,
+  "pink":       $pink,
+  "warning":    $yellow,
+  "danger":     $red,
+  "light":      $light,
+  "blue":      $blue,
+);
+
+$colors: (
+    "primary": (
+        "base": $primary
+    ),
+    "secondary": (
+        "base": $secondary
+    ),
+    "info": (
+        "base": $info
+    ),
+    "success": (
+        "base": $success
+    ),
+    "warning": (
+        "base": $warning
+    ),
+    "error": (
+        "base": $danger
+    ),
+    "light": (
+        "base": $light
+    ),
+    "dark": (
+        "base": $dark
+    ),
+    "blue": (
+        "base": $blue
+    )
+);
+
+// inputs
+$input-box-shadow: none;
+$input-padding-x: 1rem;
+$input-padding-y: 0.7rem;
+$form-label-margin-bottom: 1rem;
+$form-select-box-shadow: none;
+$input-border-radius: 0.4rem;
+$input-border-width: 1;
+$input-focus-box-shadow: none !important;
+$input-btn-focus-box-shadow: none !important;
+$btn-focus-box-shadow: none !important;
+$form-check-input-focus-box-shadow: none !important;
+
+// Typography
+$text-muted: #90a4ae;
+
+// borders
+$border-radius: 9px;
+$border-width: 1px;
+$border-color: darken($light, 8);
+
+// Navigation
+$nav-link-font-size: 1.2em;
+$navbar-nav-link-padding-x: 1.2em;
+
+// base vuetify
+$grid-gutter-width: 2rem;
+$alert-border-radius: 0.5rem;
+
+$border-radius-root: $border-radius;
+
+// Buttons
+$btn-link-color: #fff;
+$btn-padding-x: 1em;
+$btn-outline-border-width: 1.8px;
+$btn-font-weight: bold;
+$btn-border-radius: $border-radius;
+$btn-border-radius-sm: $border-radius;
+$btn-border-radius-lg: $border-radius;
+$btn-tile-border-radius: 0;
+$btn-letter-spacing: 0;
+
+$grid-breakpoints: (
+    "xs": 0,
+    "sm": 576px,
+    "md": 768px,
+    "lg": 992px,
+    "xl": 1200px,
+    "xxl": 1400px,
+);
+
+$container-max-widths: (
+    "md": map-get($grid-breakpoints, "md") * 0.9375,
+    "lg": map-get($grid-breakpoints, "lg") * 0.9375,
+    "xl": map-get($grid-breakpoints, "xl") * 0.9375,
+    "xxl": map-get($grid-breakpoints, "xxl") * 0.9375
+);
+
+$themeColor: $primary;
+
+// shadows
+$box-shadow: 0 0.5rem 1rem rgba($dark, 0.15);

@@ -1,0 +1,39 @@
+$fonts-dir: "@/fonts/";
+
+@font-face {
+	font-family: Dana;
+	src: url("#{$fonts-dir}dana-regular.eot");
+	src: url("#{$fonts-dir}dana-regular.eot?#iefix") format("embedded-opentype"),
+		url("#{$fonts-dir}dana-regular.woff2") format("woff2"),
+		url("#{$fonts-dir}dana-regular.woff") format("woff"),
+		url("#{$fonts-dir}dana-regular.ttf") format("truetype");
+	font-weight: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Dana;
+	src: url("#{$fonts-dir}dana-demibold.eot");
+	src: url("#{$fonts-dir}dana-demibold.eot?#iefix")
+			format("embedded-opentype"),
+		url("#{$fonts-dir}dana-demibold.woff2") format("woff2"),
+		url("#{$fonts-dir}dana-demibold.woff") format("woff"),
+		url("#{$fonts-dir}dana-demibold.ttf") format("truetype");
+	font-weight: bold;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: Dana;
+	src: url("#{$fonts-dir}dana-light.eot");
+	src: url("#{$fonts-dir}dana-light.eot?#iefix") format("embedded-opentype"),
+		url("#{$fonts-dir}dana-light.woff2") format("woff2"),
+		url("#{$fonts-dir}dana-light.woff") format("woff"),
+		url("#{$fonts-dir}dana-light.ttf") format("truetype");
+	font-weight: 300;
+	font-display: swap;
+}
+
+.font-default {
+	font-family: Dana !important;
+}

@@ -1,0 +1,28 @@
+@import "./transitions";
+@import "./fonts";
+
+* {
+    box-sizing: border-box;
+    font-family: Dana;
+    letter-spacing: 0 !important;
+}
+
+svg {
+    line-height: 0 !important;
+}
+
+.sticky-top {
+    top: 2rem !important;
+}
+
+.br-9 {
+    border-radius: 9px !important;
+}
+
+p {
+    margin: 0 !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
