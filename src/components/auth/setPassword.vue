@@ -1,7 +1,10 @@
 <template>
     <div class="primary rounded-lg elevation-3 pa-4 d-flex flex-column align-center justify-center w-100" style="z-index: 1;position: relative;">
-        <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="!completeSignup">
+        <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="step < 2">
             <v-icon color="error" style="font-size: 7rem">mdi-close</v-icon>
+        </div>
+        <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="step > 2">
+            <v-icon color="success" style="font-size: 7rem">mdi-check</v-icon>
         </div>
         <h3 class="light--text mb-5">ایجاد کلمه عبور</h3>
         
@@ -54,7 +57,7 @@ import axios from "axios"
 
 export default {
     name: "setPassword",
-    props: ["completeSignup"],
+    props: ["step"],
     data() {
         return {
             rules: {
@@ -73,6 +76,7 @@ export default {
             loading: false
         }
     },
+    
     methods: {
         setUserPassword() {
             if(this.password.localeCompare(this.repeatPassword) != 0) {
@@ -82,7 +86,7 @@ export default {
             axios.patch("/auth/set-password", {password: this.password})
                 .then(({data}) => {
                     this.notify(data.data.message, "success")
-                    this.$router.push('/')
+                    this.$emit("complete")
                 })
                 .catch(err => {
                     this.handle_error(err)

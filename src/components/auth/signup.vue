@@ -1,6 +1,6 @@
 <template>
     <div class="primary rounded-lg elevation-3 pa-4 d-flex flex-column align-center justify-center w-100" style="z-index: 1; position: relative;">
-        <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="completeSignup">
+        <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="step > 1">
             <v-icon color="success" style="font-size: 7rem">mdi-check</v-icon>
         </div>
         <h3 class="light--text mb-5">ثبت نام</h3>
@@ -41,7 +41,7 @@ import axios from "axios"
 
 export default {
     name: "signup",
-    props: ["completeSignup"],
+    props: ["step"],
     data() {
         return {
             second: 120,
@@ -94,12 +94,8 @@ export default {
                         otp: true,
                     }
 
-                    this.$store.commit("set_data", {
-                        key: "user",
-                        data: data.data.user
-                    })
                     axios.defaults.headers.common["authorization"] = `Bearer ${data.data.accessToken}`
-                    this.$emit("signup")
+                    this.$emit("complete")
                 })
                 .catch(err => {
                     this.handle_error(err)

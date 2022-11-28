@@ -2,8 +2,9 @@
     <div class="h-100">
         <div class="ellipse-1 secondary rounded-circle"></div>
         <div class="d-flex flex-column justify-center gap-4 h-100">
-            <signup @signup="completeSignup = true" :completeSignup="completeSignup"></signup>
-            <setPassword :completeSignup="completeSignup"></setPassword>
+            <signup @complete="step++" :step="step"></signup>
+            <setPassword @complete="step++" :step="step"></setPassword>
+            <setUserInfo :step="step"></setUserInfo>
         </div>
         <div class="ellipse-2 secondary rounded-circle"></div>
     </div>
@@ -12,16 +13,18 @@
 <script>
 import signup from "@/components/auth/signup.vue"
 import setPassword from "@/components/auth/setPassword.vue"
+import setUserInfo from "@/components/auth/setUserInfo.vue"
 
 export default {
     name: "authPage",
     components: {
         signup,
         setPassword,
+        setUserInfo,
     },
     data() {
         return {
-            completeSignup: false
+            step: 1
         }
     },
 }

@@ -50,7 +50,6 @@ export default {
 
 		.v-snack__wrapper {
 			min-height: 4em !important;
-			border-radius: 0px !important;
 		}
 	}
 }
