@@ -1,13 +1,14 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="pa-4">
       <transition name="moveX" mode="out-in">
         <router-view/>
       </transition>
-    </v-main>
-
+      
       <snackbar></snackbar>
       <prompt></prompt>
+    </v-main>
+
   </v-app>
 </template>
 

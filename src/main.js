@@ -15,9 +15,10 @@ import filters from '@/mixins/filters';
 import notify from '@/mixins/notify';
 import exception_handler from '@/mixins/exception_handler';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 axios.defaults.headers.common['Accept'] = "application/json";
+axios.defaults.baseURL = "http://localhost:5000"
 axios.interceptors.response.use(function (response) {
 	return response;
 }, function (error) {
@@ -26,6 +27,20 @@ axios.interceptors.response.use(function (response) {
 	console.error(error, error.message);
 	return Promise.reject(error);
 });
+
+router.beforeEach((to, from, next) => {
+  const user = store.getters.get_state("user")
+  const path = to.path
+
+  if(path == "/auth" && user) return next({path: '/'})
+  else if(path == "/auth" && !user) return next()
+
+  else if(path == "/login" && user) return next({path: '/'})
+  else if(path == "/login" && !user) return next()
+
+  else if(!user) return next({path: "/login"})
+  else next()
+})
 
 Vue.mixin(filters);	
 Vue.mixin(notify);

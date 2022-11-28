@@ -22,7 +22,7 @@ export default {
 		 */
 		handle_error(err, loading_field = null) {
 			loading_field && (this[loading_field] = false);
-
+			
 			err.response.status === 422
 				? this.handle_validation_error(err.response)
 				: this.show_validation_error_notification(err.response);
@@ -35,8 +35,8 @@ export default {
 		 */
 		show_validation_error_notification(res) {
 			this.notify(
-				res.data && res.data.message && /[\u0600-\u06FF\s]+/.test(res.data.message)
-					? res.data.message
+				res.data && res.data.error && res.data.error.message && /[\u0600-\u06FF\s]+/.test(res.data.error.message)
+					? res.data.error.message
 					: this.get_validation_message(res.status),
 				"error"
 			);
@@ -61,7 +61,7 @@ export default {
 		 * @param err Exception object
 		 */
 		handle_validation_error(err) {
-			this.notify(this.get_validation_errors_list(err.data.errors), "error");
+			this.notify(this.get_validation_errors_list(err.data.error), "error");
 		},
 
 		/**
@@ -69,9 +69,9 @@ export default {
 		 *
 		 * @param errors object of validation errors
 		 */
-		get_validation_errors_list(errors) {
+		get_validation_errors_list(error) {
 			return (
-				"<ul><li>" + this.flatten(Object.values(errors)).join("</li><li>") + "</li></ul>"
+				"<ul><li>" + this.flatten(Object.values(error)).join("</li><li>") + "</li></ul>"
 			);
 		},
 

@@ -1,14 +1,26 @@
 const routes = [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: () => import(/* webpackChunkName: "home" */ '@/views/HomeView.vue')
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   component: () => import(/* webpackChunkName: "about" */ '@/views/AboutView.vue')
-    // }
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import(/* webpackChunkName: "auth" */ '@/pages/auth.page.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ '@/pages/login.page.vue')
+    },
+    {
+      path: '/',
+      name: 'homeLayout',
+      component: () => import(/* webpackChunkName: "homeLayout" */ '@/layouts/home.layout.vue'),
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: () => import(/* webpackChunkName: "home" */ '@/pages/home.page.vue')
+        }
+      ]
+    }
 ]
 
 export default routes

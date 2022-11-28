@@ -14,66 +14,66 @@ $card-spacer-y: 1.6em;
 $card-spacer-x: 1.6em;
 
 // colors
-$white: #fff;
-// $primary: #990134;
-// $secondary: #F67280;
-$info: #3949ab;
-$success: #4CAF50;
-$warning: #FFC107;
-$danger: #990134;
-$light: #fff;
-$dark: #212121;
-$color-pack: false;
+// $white: #fff;
+// // $primary: #990134;
+// // $secondary: #F67280;
+// $info: #3949ab;
+// $success: #4CAF50;
+// $warning: #FFC107;
+// $danger: #990134;
+// $light: #fff;
+// $dark: #212121;
+// $color-pack: false;
 
-$blue: #3259F5;
-$red : #990134;
-$yellow : #FFC107;
-$green : #4CAF50;
-$pink : #F67280;
-$primary: #F67280;
-$bg : #F6F6F8;
-$secondary: #F6F6F8;
+// $blue: #3259F5;
+// $red : #990134;
+// $yellow : #FFC107;
+// $green : #4CAF50;
+// $pink : #F67280;
+// $primary: #F67280;
+// $bg : #F6F6F8;
+// $secondary: #F6F6F8;
 
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $green,
-  "pink":       $pink,
-  "warning":    $yellow,
-  "danger":     $red,
-  "light":      $light,
-  "blue":      $blue,
-);
+// $theme-colors: (
+//   "primary":    $primary,
+//   "secondary":  $secondary,
+//   "success":    $green,
+//   "pink":       $pink,
+//   "warning":    $yellow,
+//   "danger":     $red,
+//   "light":      $light,
+//   "blue":      $blue,
+// );
 
-$colors: (
-    "primary": (
-        "base": $primary
-    ),
-    "secondary": (
-        "base": $secondary
-    ),
-    "info": (
-        "base": $info
-    ),
-    "success": (
-        "base": $success
-    ),
-    "warning": (
-        "base": $warning
-    ),
-    "error": (
-        "base": $danger
-    ),
-    "light": (
-        "base": $light
-    ),
-    "dark": (
-        "base": $dark
-    ),
-    "blue": (
-        "base": $blue
-    )
-);
+// $colors: (
+//     "primary": (
+//         "base": $primary
+//     ),
+//     "secondary": (
+//         "base": $secondary
+//     ),
+//     "info": (
+//         "base": $info
+//     ),
+//     "success": (
+//         "base": $success
+//     ),
+//     "warning": (
+//         "base": $warning
+//     ),
+//     "error": (
+//         "base": $danger
+//     ),
+//     "light": (
+//         "base": $light
+//     ),
+//     "dark": (
+//         "base": $dark
+//     ),
+//     "blue": (
+//         "base": $blue
+//     )
+// );
 
 // inputs
 $input-box-shadow: none;

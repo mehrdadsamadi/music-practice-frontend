@@ -3,6 +3,7 @@
 		v-model="snackbar_show"
 		:timeout="snackbar.timeout"
 		transition="slide-y-reverse-transition"
+		class="rounded-lg"
 	>
 		<span v-html="snackbar.content"></span>
 
