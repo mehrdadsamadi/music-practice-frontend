@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="pa-4">
+    <v-main class="pa-4" style="padding-bottom: 6rem !important;">
       <transition name="moveX" mode="out-in">
         <router-view/>
       </transition>

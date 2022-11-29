@@ -3,6 +3,30 @@
         <transition name="moveX" mode="out-in">
             <router-view/>
         </transition>
+        <v-navigation-drawer
+            v-model="drawer"
+            fixed
+            bottom
+            temporary
+            style="height: unset"
+            v-if="$store.getters.get_state('user')?.role == 'ADMIN' "
+        >
+            <v-list
+                nav
+                dense
+            >
+                <v-list-item-group
+                    active-class="primary--text"
+                >
+                    <v-list-item to="/instrument">
+                        <v-list-item-icon>
+                            <v-icon>mdi-plus-box-multiple-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل ساز ها</v-list-item-title>
+                    </v-list-item>
+                </v-list-item-group>
+            </v-list>
+        </v-navigation-drawer>
         <v-bottom-navigation
             v-model="navigation"
             background-color="primary"
@@ -20,6 +44,10 @@
                 <span>تمرین ها</span>
 
                 <v-icon>mdi-music</v-icon>
+            </v-btn>
+
+            <v-btn color="error" v-if="$store.getters.get_state('user')?.role =='ADMIN'" @click.stop="drawer = !drawer" style="min-width: unset; min-height: unset; bottom: 2rem; height: 68px;" class="rounded-circle">
+                <v-icon large style="transform: unset;">mdi-plus</v-icon>
             </v-btn>
 
             <v-btn>
@@ -43,7 +71,8 @@ export default {
     name: "homeLayout",
     data() {
         return {
-            navigation: 2
+            navigation: 2,
+            drawer: false
         }
     },
     methods: {
