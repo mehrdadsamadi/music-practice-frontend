@@ -28,19 +28,19 @@ axios.interceptors.response.use(function (response) {
 	return Promise.reject(error);
 });
 
-// router.beforeEach((to, from, next) => {
-//   const user = store.getters.get_state("user")
-//   const path = to.path
+router.beforeEach((to, from, next) => {
+  const user = store.getters.get_state("user")
+  const path = to.path
 
-//   if(path == "/auth" && user) return next({path: '/'})
-//   else if(path == "/auth" && !user) return next()
+  if(path == "/auth" && user) return next({path: '/'})
+  else if(path == "/auth" && !user) return next()
 
-//   else if(path == "/login" && user) return next({path: '/'})
-//   else if(path == "/login" && !user) return next()
+  else if(path == "/login" && user) return next({path: '/'})
+  else if(path == "/login" && !user) return next()
 
-//   else if(!user) return next({path: "/login"})
-//   else next()
-// })
+  else if(!user) return next({path: "/login"})
+  else next()
+})
 
 Vue.mixin(filters);	
 Vue.mixin(notify);

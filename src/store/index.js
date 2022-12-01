@@ -8,7 +8,7 @@ export default new Vuex.Store({
     snackbar: {
 		content: "",
 		show: false,
-		color: "info",
+		color: "error",
 		timeout: 5000
 	},
 

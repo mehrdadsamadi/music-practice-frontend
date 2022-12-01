@@ -22,9 +22,9 @@
 
             <template #[`item.actions`]="{ item }">
                 <v-icon
-                    @click="deleteItem(item)"
+                    @click="deleteInstroment(item)"
                 >
-                    mdi-delete
+                    mdi-trash-can-outline
                 </v-icon>
             </template>
         </v-data-table>
@@ -48,6 +48,7 @@
                     outlined
                     fab
                     color="primary"
+                    :loading="loading"
                     @click="addInstrument"
                 >
                     <v-icon>mdi-plus</v-icon>
@@ -84,7 +85,7 @@ export default {
                 })
                 .catch(err => this.handle_error(err))
         },
-        deleteItem(item) {
+        deleteInstroment(item) {
             this.prompt({title: "حذف", message: "برای حذف این ساز مطمعن هستید؟"})
                 .then(() => {
                     axios.delete(`instrument/remove/${item._id}`)
@@ -101,6 +102,7 @@ export default {
             axios.post("instrument/add", {name: this.name})
                 .then(({data}) => {
                     this.notify(data.data.message, "success")
+                    this.name = ""
                     this.getInstruments()
                 })
                 .catch(err => this.handle_error(err))

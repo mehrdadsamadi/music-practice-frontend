@@ -24,6 +24,11 @@ const routes = [
           name: "instrument",
           component: () => import(/* webpackChunkName: "instrument" */ '@/pages/instrument.page.vue')
         },
+        {
+          path: "/gift",
+          name: "gift",
+          component: () => import(/* webpackChunkName: "gift" */ '@/pages/gift.page.vue')
+        },
       ]
     }
 ]

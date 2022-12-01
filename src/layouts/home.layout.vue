@@ -24,6 +24,14 @@
                         </v-list-item-icon>
                         <v-list-item-title>کنترل ساز ها</v-list-item-title>
                     </v-list-item>
+                    
+                    <v-list-item to="/gift">
+                        <v-list-item-icon>
+                            <v-icon>mdi-gift-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل هدیه ها</v-list-item-title>
+                    </v-list-item>
+
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
@@ -81,6 +89,7 @@ export default {
                 .then(() => {
                     delete axios.defaults.headers.common["authorization"];
                     this.$store.commit("set_data", {key: "user", data: null})
+                    this.notify("خروج با موفقیت انجام شد", "success")
                     return this.$router.push("/login")
                 })
                 

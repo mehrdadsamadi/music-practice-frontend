@@ -2,12 +2,21 @@
 	<v-snackbar
 		v-model="snackbar_show"
 		:timeout="snackbar.timeout"
+		:color="snackbar.color"
+		:light="snackbar.color == 'success'"
 		transition="slide-y-reverse-transition"
 		class="rounded-lg"
 	>
 		<span v-html="snackbar.content"></span>
 
-		<v-btn :color="snackbar.color" @click="snackbar_show = false" small tile class="mr-2" depressed>بستن</v-btn>
+		<v-btn 
+			:color="snackbar.color == 'success' ? 'error' : 'success'" 
+			:class="{'black--text' : this.snackbar.color == 'error'}"
+			@click="snackbar_show = false" 
+			class="mr-2" 
+			small 
+			depressed
+		>بستن</v-btn>
 	</v-snackbar>
 </template>
 
@@ -29,7 +38,7 @@ export default {
 					value,
 				});
 			}
-		}
+		},
 	}
 }
 </script>

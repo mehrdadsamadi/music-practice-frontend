@@ -11,7 +11,7 @@ export default new Vuetify({
             secondary: "#3FC1C9",
             error: "#FC5185",
             light: "#F5F5F5",
-            success: "#4CAF50"
+            success: "#F5F5F5"
           },
         },
     },
