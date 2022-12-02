@@ -10,9 +10,15 @@
             :headers="headers"
             :items="instruments"
             :items-per-page="10"
+            :loading="tableLoading"
+            loading-text="در حال دریافت اطلاعات ..."
             hide-default-footer
             class="elevation-1"
         >
+            <template v-slot:no-data>
+                <p>فستیوالی برای نمایش وجود ندارد</p>
+            </template>
+
             <template #[`item.name`]="{item}">
                 <v-chip
                     v-text="item.name"
@@ -71,7 +77,8 @@ export default {
             ],
             instruments: [],
             name: "",
-            loading: false
+            loading: false,
+            tableLoading: false,
         }
     },
     created() {
@@ -79,11 +86,13 @@ export default {
     },
     methods: {
         getInstruments() {
+            this.tableLoading = true
             axios.get("instrument/get-all")
                 .then(({data}) => {
                     this.instruments = data.data.instruments
                 })
                 .catch(err => this.handle_error(err))
+                .finally(() => this.tableLoading = false)
         },
         deleteInstroment(item) {
             this.prompt({title: "حذف", message: "برای حذف این ساز مطمعن هستید؟"})

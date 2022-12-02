@@ -29,6 +29,11 @@ const routes = [
           name: "gift",
           component: () => import(/* webpackChunkName: "gift" */ '@/pages/gift.page.vue')
         },
+        {
+          path: "/festival",
+          name: "festival",
+          component: () => import(/* webpackChunkName: "festival" */ '@/pages/festival.page.vue')
+        },
       ]
     }
 ]

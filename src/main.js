@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import '@/scss/style.scss';
 
 // import mixins
-import filters from '@/mixins/filters';
 import notify from '@/mixins/notify';
 import exception_handler from '@/mixins/exception_handler';
 
@@ -42,7 +41,6 @@ router.beforeEach((to, from, next) => {
   else next()
 })
 
-Vue.mixin(filters);	
 Vue.mixin(notify);
 Vue.mixin(exception_handler);
 

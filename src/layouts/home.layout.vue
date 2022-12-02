@@ -31,6 +31,13 @@
                         </v-list-item-icon>
                         <v-list-item-title>کنترل هدیه ها</v-list-item-title>
                     </v-list-item>
+                    
+                    <v-list-item to="/festival">
+                        <v-list-item-icon>
+                            <v-icon>mdi-tournament</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل جشنواره ها</v-list-item-title>
+                    </v-list-item>
 
                 </v-list-item-group>
             </v-list>

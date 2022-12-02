@@ -10,9 +10,15 @@
             :headers="headers"
             :items="gifts"
             :items-per-page="10"
+            :loading="tableLoading"
+            loading-text="در حال دریافت اطلاعات ..."
             hide-default-footer
             class="elevation-1"
         >
+
+            <template v-slot:no-data>
+                <p>فستیوالی برای نمایش وجود ندارد</p>
+            </template>
 
             <template #[`item.in_festival`]="{item}">
 
@@ -98,7 +104,7 @@
 import axios from "axios"
 
 export default {
-    name: "instrumentPage",
+    name: "giftPage",
     data() {
         return {
             headers: [
@@ -114,6 +120,7 @@ export default {
                 in_festival: false,
             },
             loading: false,
+            tableLoading: false,
             isUpdate: false,
             updateId: ""
         }
@@ -123,11 +130,13 @@ export default {
     },
     methods: {
         getGifts() {
+            this.tableLoading = true
             axios.get("gift/get-all")
                 .then(({data}) => {
                     this.gifts = data.data.gifts
                 })
                 .catch(err => this.handle_error(err))
+                .finally(() => this.tableLoading = false)
         },
         deleteGift(item) {
             this.prompt({title: "حذف", message: "برای حذف این هدیه مطمعن هستید؟"})
