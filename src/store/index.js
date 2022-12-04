@@ -8,7 +8,7 @@ export default new Vuex.Store({
     snackbar: {
 		content: "",
 		show: false,
-		color: "error",
+		color: "success",
 		timeout: 5000
 	},
 
@@ -21,6 +21,7 @@ export default new Vuex.Store({
 		resolve: null,
 	},
 
+	//TODO: زمانی که کاربر رفت به صفحه پیام ها، فیلد زیر ادیت بشه و سین پیام ها 1 شود
 	user: null
   },
   getters: {

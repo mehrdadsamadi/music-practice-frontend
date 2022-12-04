@@ -236,6 +236,7 @@
                     item-text="name"
                     item-value="_id"
                     label="هدیه ها"
+                    hide-details
                     clearable
                     deletable-chips
                     dense
@@ -253,6 +254,7 @@
                     :item-text="item => `${item.first_name} ${item.last_name}`"
                     item-value="_id"
                     label="شرکت کنندگان"
+                    hide-details
                     clearable
                     deletable-chips
                     dense
@@ -262,7 +264,7 @@
                     small-chips
                 ></v-autocomplete>
             </div>
-            <div class="col-12 w-100 mt-3">
+            <div class="col-12 w-100 mt-5">
                 <v-btn
                     v-if="isUpdate"
                     outlined

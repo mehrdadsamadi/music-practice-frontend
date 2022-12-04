@@ -1,10 +1,10 @@
 <template>
     <div class="primary rounded-lg elevation-3 pa-4 d-flex flex-column align-center justify-center w-100" style="z-index: 1;position: relative;">
         <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="step < 2">
-            <v-icon color="error" style="font-size: 7rem">mdi-close</v-icon>
+            <v-icon color="light" style="font-size: 7rem">mdi-numeric-2-box-multiple-outline</v-icon>
         </div>
         <div class="grey rounded-lg overlaw d-flex justify-center align-center" v-if="step > 2">
-            <v-icon color="success" style="font-size: 7rem">mdi-check</v-icon>
+            <v-icon color="light" style="font-size: 7rem">mdi-check</v-icon>
         </div>
         <h3 class="light--text mb-5">ایجاد کلمه عبور</h3>
         

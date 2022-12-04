@@ -38,6 +38,13 @@
                         </v-list-item-icon>
                         <v-list-item-title>کنترل جشنواره ها</v-list-item-title>
                     </v-list-item>
+                    
+                    <v-list-item to="/message">
+                        <v-list-item-icon>
+                            <v-icon>mdi-message-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل پیام ها</v-list-item-title>
+                    </v-list-item>
 
                 </v-list-item-group>
             </v-list>
@@ -71,11 +78,22 @@
                 <v-icon>mdi-numeric</v-icon>
             </v-btn>
 
-            <v-btn>
+            <v-badge
+                v-if="!seen"
+                overlap
+                left
+                color="error"
+            >
+                <v-btn class="h-100">
+                    <span>پیام ها</span>
+                    <v-icon>mdi-message-outline</v-icon>
+                </v-btn>
+            </v-badge>
+            <v-btn v-else>
                 <span>پیام ها</span>
-
                 <v-icon>mdi-message-outline</v-icon>
             </v-btn>
+
         </v-bottom-navigation>
     </div>
 </template>
@@ -87,11 +105,22 @@ export default {
     data() {
         return {
             navigation: 2,
-            drawer: false
+            drawer: false,
+            seen: true
         }
     },
+    created() {
+        this.checkUnreadMessages()
+    },
     methods: {
-        logout() {
+        checkUnreadMessages() {
+            const user = this.$store.getters.get_state("user")
+            
+            user.messages.forEach(message => {
+                if(message?.seen == false) return this.seen = false
+            });
+        },
+        async logout() {
             this.prompt({title: "خروج", message: "آیا برای خروج از حساب خود مطمعن هستید؟"})
                 .then(() => {
                     delete axios.defaults.headers.common["authorization"];
@@ -99,8 +128,8 @@ export default {
                     this.notify("خروج با موفقیت انجام شد", "success")
                     return this.$router.push("/login")
                 })
-                
-            // FIXME: navigation doesn't changed
+            
+            await this.$nextTick()
             this.navigation = 2
         }
     },
@@ -108,5 +137,17 @@ export default {
 </script>
 
 <style>
+@keyframes pulse {
+  from {transform: scale(1);}
+  to {transform: scale(.9);}
+}
 
+span.v-badge__badge.error {
+    right: 1rem !important;
+    top: 0.3rem !important;
+    transform: scale(1);
+    animation-name: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
 </style>

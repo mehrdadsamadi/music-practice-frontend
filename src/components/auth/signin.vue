@@ -37,7 +37,7 @@
             ورود
         </v-btn>
 
-        <v-btn color="warning" to="/auth" text class="mt-3">میخواهم ثبت نام کنم</v-btn>
+        <v-btn color="light" to="/auth" text class="mt-3">میخواهم ثبت نام کنم</v-btn>
 
     </div>
 </template>

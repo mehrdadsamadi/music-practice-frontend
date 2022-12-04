@@ -11,7 +11,7 @@
 
 		<v-btn 
 			:color="snackbar.color == 'success' ? 'error' : 'success'" 
-			:class="{'black--text' : this.snackbar.color == 'error'}"
+			:class="{'black--text' : snackbar.color == 'error'}"
 			@click="snackbar_show = false" 
 			class="mr-2" 
 			small 

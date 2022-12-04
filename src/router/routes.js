@@ -34,6 +34,11 @@ const routes = [
           name: "festival",
           component: () => import(/* webpackChunkName: "festival" */ '@/pages/festival.page.vue')
         },
+        {
+          path: "/message",
+          name: "message",
+          component: () => import(/* webpackChunkName: "message" */ '@/pages/message.page.vue')
+        },
       ]
     }
 ]
