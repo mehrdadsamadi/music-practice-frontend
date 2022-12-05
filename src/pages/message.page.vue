@@ -7,79 +7,120 @@
         </div>
 
         <div class="showMessage row">
-            <div 
-                class="mt-3 col-12"
-                v-for="(user) in users"
-                :key="user._id"
-            >
-                <v-card>
-                    <v-card-text>
-                        <h3 class="text--primary">{{user | fullname}}</h3>
-                        <v-divider></v-divider>
-                        <template v-if="user?.messages.length">
-                            <p>{{user.messages[user.messages.length - 1]?.createdAt | calender}}</p>
-                            <div class="text--primary" v-text="user.messages[user.messages.length - 1]?.message"></div>
-                        </template>
-                        <v-alert
-                            v-else
-                            border="left"
-                            colored-border
-                            type="error"
-                            elevation="1"
-                        >
-                            این شخص هیچ پیامی ندارد
-                        </v-alert>
-                    </v-card-text>
-                    <v-card-actions v-if="user?.messages.length">
-                        <v-btn
-                            rounded
-                            depressed
-                            color="secondary"
-                            class="px-3"
-                            @click="getUserMessages(user._id)"
-                        >
-                            همه پیام ها
-                        </v-btn>
-                    </v-card-actions>
-    
-                    <v-expand-transition>
-                        <v-card
-                            v-if="reveal == user._id"
-                            class="transition-fast-in-fast-out v-card--reveal"
-                            style="height: 100%;"
-                        >
-                            <template v-if="messages.length">
-                                <v-card-text v-for="(message) in messages" :key="message._id" class="pb-0">
-                                    <p>{{message?.createdAt | calender}}</p>
-                                    <div class="text--primary" v-text="message?.message"></div>
-                                    <v-divider></v-divider>
-                                </v-card-text>
-                            </template>
-                            <v-card-text v-else>
+            <div class="col-12 mt-3 mb-5">
+                <v-text-field
+                    v-model="searchField"
+                    label="جستجو هنرجو"
+                    class="w-100"
+                    background-color="light"
+                    @input="search"
+                    hide-details
+                    filled
+                    rounded
+                    dense
+                ></v-text-field>
+            </div>
+            <TransitionGroup name="list">
+
+                <!-- <template v-if="searchUsers.length"> -->
+                    
+                    <div 
+                        class="mt-3 col-12"
+                        v-for="(user) in searchUsers"
+                        :key="user._id"
+                    >
+                        <v-card>
+
+                            <v-card-text>
+                                <h3 class="text--primary">{{user | fullname}}</h3>
+
+                                <v-divider></v-divider>
+
+                                <template v-if="user?.messages.length">
+                                    <p class="d-flex align-baseline">{{user.messages[user.messages.length - 1]?.createdAt | calender}} <v-icon class="mr-2" v-if="user.messages[user.messages.length - 1].seen">mdi-check-all</v-icon></p>
+                                    <div class="text--primary" v-text="user.messages[user.messages.length - 1]?.message"></div>
+                                </template>
                                 <v-alert
+                                    v-else
                                     border="left"
                                     colored-border
                                     type="error"
                                     elevation="1"
                                 >
-                                    این شخص هیچ پیام دیگری ندارد
+                                    این شخص هیچ پیامی ندارد
                                 </v-alert>
+
                             </v-card-text>
-                            <v-card-actions class="pt-0">
+
+                            <v-card-actions v-if="user?.messages.length">
                                 <v-btn
                                     rounded
                                     depressed
-                                    color="error"
+                                    color="secondary"
                                     class="px-3"
-                                    @click="closeReveal"
+                                    @click="getUserMessages(user._id)"
                                 >
-                                    بستن
+                                    همه پیام ها
                                 </v-btn>
                             </v-card-actions>
+            
+                            <v-expand-transition>
+                                <v-card
+                                    v-if="reveal == user._id"
+                                    class="transition-fast-in-fast-out v-card--reveal"
+                                    style="height: 100%;"
+                                >
+                                    <template v-if="messages.length">
+                                        <v-divider></v-divider>
+
+                                        <v-card-text v-for="(message) in messages" :key="message._id" class="pb-0 pt-0">
+                                            <p class="d-flex align-baseline">{{message?.createdAt | calender}}  <v-icon class="mr-2" v-if="message.seen">mdi-check-all</v-icon></p>
+                                            <div class="text--primary" v-text="message?.message"></div>
+                                            <v-divider></v-divider>
+                                        </v-card-text>
+                                    </template>
+                                    <v-card-text v-else>
+                                        <v-alert
+                                            border="left"
+                                            colored-border
+                                            type="error"
+                                            elevation="1"
+                                        >
+                                            این شخص هیچ پیام دیگری ندارد
+                                        </v-alert>
+                                    </v-card-text>
+                                    <v-card-actions class="pt-0">
+                                        <v-btn
+                                            rounded
+                                            depressed
+                                            color="error"
+                                            class="px-3"
+                                            @click="closeReveal"
+                                        >
+                                            بستن
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-expand-transition>
+                            
                         </v-card>
-                    </v-expand-transition>
-                </v-card>
-            </div>
+                    </div>
+
+                <!-- </template> -->
+                <!-- <template v-else> -->
+                    <div class="col-12" key="alert" v-if="!searchUsers.length">
+                        <v-alert
+                            border="left"
+                            colored-border
+                            type="error"
+                            elevation="1"
+                        >
+                            هنرجویی یافت نشد
+                        </v-alert>
+                    </div>
+                <!-- </template> -->
+
+            </TransitionGroup>
         </div>
 
         <div class="row mt-10">
@@ -137,7 +178,9 @@ export default {
     data() {
         return {
             message: "",
+            searchField: "",
             users: [],
+            searchUsers: [],
             selectedUsers: [],
             userLoading: false,
             loading: false,
@@ -159,9 +202,18 @@ export default {
             axios.get("user/get-all")
                 .then(({data}) => {
                     this.users = data.data.users.filter(user => user.role != "ADMIN")
+                    this.searchUsers = [...this.users]
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.userLoading = false)
+        },
+        search() {
+            if (this.searchField.length == 0) {
+                return this.searchUsers = [...this.users]
+            }
+            this.searchUsers = this.users.filter(user => {
+                if(user.first_name.includes(this.searchField) || user.last_name.includes(this.searchField)) return user
+            })
         },
         closeReveal() {
             this.messages = []
@@ -214,4 +266,22 @@ export default {
 .transition-fast-in-fast-out.v-card--reveal.v-card.v-sheet.theme--light {
     overflow-y: auto;
 }
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  /* opacity: 0; */
+  transform: translateX(30rem);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+/* .list-leave-active {
+  position: absolute;
+} */
 </style>

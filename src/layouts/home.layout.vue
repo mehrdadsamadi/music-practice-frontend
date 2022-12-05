@@ -79,17 +79,17 @@
             </v-btn>
 
             <v-badge
-                v-if="!seen"
+                v-if="!seenMessage"
                 overlap
                 left
                 color="error"
             >
-                <v-btn class="h-100">
+                <v-btn to="/user-message" class="h-100">
                     <span>پیام ها</span>
                     <v-icon>mdi-message-outline</v-icon>
                 </v-btn>
             </v-badge>
-            <v-btn v-else>
+            <v-btn to="/user-message" v-else>
                 <span>پیام ها</span>
                 <v-icon>mdi-message-outline</v-icon>
             </v-btn>
@@ -106,20 +106,18 @@ export default {
         return {
             navigation: 2,
             drawer: false,
-            seen: true
         }
     },
     created() {
-        this.checkUnreadMessages()
+        this.$store.dispatch("checkUnreadMessages")
+    },
+    computed: {
+        seenMessage() {
+            return this.$store.getters.get_state("seenMessage")
+        }
     },
     methods: {
-        checkUnreadMessages() {
-            const user = this.$store.getters.get_state("user")
-            
-            user.messages.forEach(message => {
-                if(message?.seen == false) return this.seen = false
-            });
-        },
+        
         async logout() {
             this.prompt({title: "خروج", message: "آیا برای خروج از حساب خود مطمعن هستید؟"})
                 .then(() => {

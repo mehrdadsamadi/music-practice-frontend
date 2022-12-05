@@ -17,27 +17,32 @@ const routes = [
         {
           path: "",
           name: "home",
-          component: () => import(/* webpackChunkName: "home" */ '@/pages/home.page.vue')
+          component: () => import(/* webpackChunkName: "home" */ '@/pages/user/user.home.page.vue')
         },
         {
-          path: "/instrument",
+          path: "instrument",
           name: "instrument",
           component: () => import(/* webpackChunkName: "instrument" */ '@/pages/instrument.page.vue')
         },
         {
-          path: "/gift",
+          path: "gift",
           name: "gift",
           component: () => import(/* webpackChunkName: "gift" */ '@/pages/gift.page.vue')
         },
         {
-          path: "/festival",
+          path: "festival",
           name: "festival",
           component: () => import(/* webpackChunkName: "festival" */ '@/pages/festival.page.vue')
         },
         {
-          path: "/message",
+          path: "message",
           name: "message",
           component: () => import(/* webpackChunkName: "message" */ '@/pages/message.page.vue')
+        },
+        {
+          path: "user-message",
+          name: "userMessage",
+          component: () => import(/* webpackChunkName: "userMessage" */ '@/pages/user/user.message.page.vue')
         },
       ]
     }

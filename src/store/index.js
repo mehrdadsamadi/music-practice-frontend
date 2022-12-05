@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ export default new Vuex.Store({
 		resolve: null,
 	},
 
-	//TODO: زمانی که کاربر رفت به صفحه پیام ها، فیلد زیر ادیت بشه و سین پیام ها 1 شود
+	seenMessage: true,
+
 	user: null
   },
   getters: {
@@ -39,5 +41,23 @@ export default new Vuex.Store({
 	},
   },
   actions: {
+	loginUser({commit}) {
+		axios.get('/auth/get-user')
+			.then(({data}) => {
+				commit("set_data", {key: "user", data: data.data.user})
+			})
+	},
+	checkUnreadMessages({getters, commit}) {
+		const user = getters.get_state("user")
+		let seenResult = true
+
+		user.messages.forEach(message => {
+			if(message?.seen == false) {
+				return seenResult = false
+			}
+		});
+		
+		commit("set_data", {key: "seenMessage", data: seenResult})
+	},
   },
 })
