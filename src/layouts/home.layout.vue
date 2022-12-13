@@ -1,8 +1,11 @@
 <template>
     <div>
+        <timeGoalBanner></timeGoalBanner>
+
         <transition name="moveX" mode="out-in">
             <router-view/>
         </transition>
+        
         <v-navigation-drawer
             v-model="drawer"
             fixed
@@ -44,6 +47,13 @@
                             <v-icon>mdi-message-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل پیام ها</v-list-item-title>
+                    </v-list-item>
+                    
+                    <v-list-item to="/time-goal">
+                        <v-list-item-icon>
+                            <v-icon>mdi-timelapse</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل اهداف زمانی</v-list-item-title>
                     </v-list-item>
 
                 </v-list-item-group>
@@ -100,8 +110,13 @@
 
 <script>
 import axios from 'axios'
+import timeGoalBanner from '@/components/banners/timeGoalBanner.vue'
+
 export default {
     name: "homeLayout",
+    components: {
+        timeGoalBanner
+    },  
     data() {
         return {
             navigation: 2,

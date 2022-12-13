@@ -11,7 +11,6 @@ const routes = [
     },
     {
       path: '/',
-      name: 'homeLayout',
       component: () => import(/* webpackChunkName: "homeLayout" */ '@/layouts/home.layout.vue'),
       children: [
         {
@@ -38,6 +37,11 @@ const routes = [
           path: "message",
           name: "message",
           component: () => import(/* webpackChunkName: "message" */ '@/pages/message.page.vue')
+        },
+        {
+          path: "time-goal",
+          name: "timeGoal",
+          component: () => import(/* webpackChunkName: "timeGoal" */ '@/pages/timeGoal.page.vue')
         },
         {
           path: "user-message",
