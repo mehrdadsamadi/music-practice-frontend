@@ -1,22 +1,21 @@
 <template>
-    <div class="d-flex flex-column gap-2">
+    <TransitionGroup name="list" tag="div" class="d-flex flex-column gap-2">
         <v-banner
             v-for="timeGoal in activeTimeGoals" 
             :key="timeGoal._id"
             color="white"
             outlined
             rounded
-            single-line
         >
             <div class="d-flex gap-2 align-center">
-                <video width="32" height="32" preload="none" autoplay="autoplay" loop="true" muted="muted" playsinline="">
-                    <source src="https://cdn-icons-mp4.flaticon.com/512/6172/6172513.mp4" type="video/mp4">
-                </video>
+                <v-icon color="secondary">mdi-bullseye-arrow</v-icon>
+                
                 <p>هر {{timeGoal.period == 'daily' ? 'روز' : timeGoal.period == 'weekly' ? 'هفته' : 'ماه'}} {{timeGoal.time}} دقیقه تمرین کن و {{timeGoal.score}} امتیاز بگیر</p>
-                <!-- <v-icon>mdi-close</v-icon> -->
+
+                <v-icon @click="deleteBanner(timeGoal._id)">mdi-close</v-icon>
             </div>
         </v-banner>
-    </div>
+    </TransitionGroup>
 </template>
 
 <script>
@@ -54,13 +53,22 @@ export default {
                     }
                 })
             })
+        },
+        deleteBanner(timeGoalId) {
+            this.activeTimeGoals = this.activeTimeGoals.filter(tg => tg._id != timeGoalId)
         }
     }
 }
 </script>
 
 <style scoped>
-.banner {
-    
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

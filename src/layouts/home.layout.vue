@@ -1,5 +1,6 @@
 <template>
     <div>
+        <festivalBanner></festivalBanner>
         <timeGoalBanner></timeGoalBanner>
 
         <transition name="moveX" mode="out-in">
@@ -111,11 +112,13 @@
 <script>
 import axios from 'axios'
 import timeGoalBanner from '@/components/banners/timeGoalBanner.vue'
+import festivalBanner from '@/components/banners/festivalBanner.vue'
 
 export default {
     name: "homeLayout",
     components: {
-        timeGoalBanner
+        timeGoalBanner,
+        festivalBanner
     },  
     data() {
         return {
