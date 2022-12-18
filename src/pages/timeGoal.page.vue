@@ -182,7 +182,6 @@ export default {
             periods: [
                 {text: 'روزانه' , value: 'daily'}, 
                 {text: 'هفتگی' , value: 'weekly'}, 
-                {text: 'ماهانه' , value: 'monthly'}
             ],
             form: {
                 time: "",

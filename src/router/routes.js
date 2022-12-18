@@ -48,6 +48,11 @@ const routes = [
           name: "userMessage",
           component: () => import(/* webpackChunkName: "userMessage" */ '@/pages/user/user.message.page.vue')
         },
+        {
+          path: "user-practice",
+          name: "userPractice",
+          component: () => import(/* webpackChunkName: "userPractice" */ '@/pages/user/user.practice.page.vue')
+        },
       ]
     }
 ]

@@ -72,7 +72,7 @@
             <div class="col-12">
                 <v-checkbox v-model="form.in_festival">
                     <template v-slot:label>
-                        <div>هدیه برای فستیوال</div>
+                        <div>هدیه برای جشنواره</div>
                     </template>
                 </v-checkbox>
             </div>
@@ -110,7 +110,7 @@ export default {
             headers: [
                 { text: 'نام', value: 'name', sortable: false },
                 { text: 'حداقل امتیاز', value: 'min_score', sortable: false },
-                { text: 'استفاده در فستیوال', value: 'in_festival', sortable: false },
+                { text: 'استفاده در جشنواره', value: 'in_festival', sortable: false },
                 { text: "", value: "actions", sortable: false}
             ],
             gifts: [],

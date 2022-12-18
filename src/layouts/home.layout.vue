@@ -73,7 +73,7 @@
                 <v-icon>mdi-logout</v-icon>
             </v-btn>
 
-            <v-btn>
+            <v-btn to="/user-practice">
                 <span>تمرین ها</span>
 
                 <v-icon>mdi-music</v-icon>
