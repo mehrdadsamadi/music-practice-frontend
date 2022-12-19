@@ -1,5 +1,5 @@
 <template>
-	<v-dialog v-model="prompt_show" max-width="290" content-class="prompt">
+	<v-dialog v-model="prompt_show" :persistent="!the_prompt.show_btn" max-width="290" content-class="prompt">
 		<div class="card">
 			<div class="card-body text-center">
 				<div class="mb-5">
@@ -7,7 +7,7 @@
 					<div class="text-muted font-size-sm" v-html="the_prompt.message"></div>
 				</div>
 
-				<div class="row">
+				<div class="row" v-if="the_prompt.show_btn">
 					<div class="col-6">
 						<v-btn
 							color="#F6F7FE"

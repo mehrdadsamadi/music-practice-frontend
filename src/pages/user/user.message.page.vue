@@ -7,26 +7,38 @@
         </div>
 
         <div class="row">
-            <div class="col-12 mb-3" v-for="message in messages" :key="message._id">
-                <div class="d-flex gap-2">
-                    <v-avatar color="primary">
-                        <v-icon dark>
-                            mdi-account-circle
-                        </v-icon>
-                    </v-avatar>
-                    <v-sheet
-                        rounded="xl"
-                        width="100%"
-                        elevation="2"
-                        class="py-3 px-5 opacity-05"
-                        :class="{'opacity-1' : !message.seen}"
-                    >
-                        <div class="d-flex flex-column">
-                            <p class="text-muted">{{message.createdAt | calender}}</p>
-                            <p v-text="message.message"></p>
-                        </div>
-                    </v-sheet>
+            <template v-if="messages.length">
+                <div class="col-12 mb-3" v-for="message in messages" :key="message._id">
+                    <div class="d-flex gap-2">
+                        <v-avatar color="primary">
+                            <v-icon dark>
+                                mdi-account-circle
+                            </v-icon>
+                        </v-avatar>
+                        <v-sheet
+                            rounded="xl"
+                            width="100%"
+                            elevation="2"
+                            class="py-3 px-5 opacity-05"
+                            :class="{'opacity-1' : !message.seen}"
+                        >
+                            <div class="d-flex flex-column">
+                                <p class="text-muted">{{message.createdAt | calender}}</p>
+                                <p v-text="message.message"></p>
+                            </div>
+                        </v-sheet>
+                    </div>
                 </div>
+            </template>
+            <div class="col-12" v-else>
+                <v-alert
+                    border="left"
+                    colored-border
+                    type="error"
+                    elevation="1"
+                >
+                    هیچ پیامی نداری
+                </v-alert>
             </div>
         </div>
     </div>

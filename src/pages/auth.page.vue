@@ -27,6 +27,14 @@ export default {
             step: 1
         }
     },
+
+    created() {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+        } else {
+            return this.prompt({title: "خطا", message: "برای استفاده از این اپلیکیشن ، با موبایل خود وارد شوید", show_btn: false})
+        }
+    },
 }
 </script>
 

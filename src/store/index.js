@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		message: "",
 		accept_btn: "",
 		reject_btn: "",
+		show_btn: true,
 		show: false,
 		resolve: null,
 	},

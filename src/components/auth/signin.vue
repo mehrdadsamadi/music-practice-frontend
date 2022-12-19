@@ -70,7 +70,7 @@ export default {
                     })
                     axios.defaults.headers.common["authorization"] = `Bearer ${data.data.accessToken}`
 
-                    this.$router.push({path: "/"})
+                    this.$router.push({path: "/user-score"})
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.loading = false)

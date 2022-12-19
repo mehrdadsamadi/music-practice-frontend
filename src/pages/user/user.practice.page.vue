@@ -22,8 +22,10 @@
                     </template>
                 </v-progress-linear>
 
-                <p class="text-muted p-hint" v-if="(timeGoal.daily.time - practice.day) > 0">تا آخر امروز <span class="fw-bold primary--text fs-6">{{timeGoal.daily.time - practice.day}}</span> دقیقه دیگه تمرین کن و <span class="fw-bold primary--text fs-6">{{timeGoal.daily.score}}</span> امتیاز بگیر</p>
-                <p class="text-muted p-hint" v-else>تبریک میگم! تو <span class="fw-bold primary--text fs-6">{{timeGoal.daily.score}}</span> امتیاز تمرین امروز خودت رو دریافت کردی</p>
+                <template v-if="timeGoal.daily.time > 0">
+                    <p class="text-muted p-hint" v-if="(timeGoal.daily.time - practice.day) > 0">تا آخر امروز <span class="fw-bold primary--text fs-6">{{timeGoal.daily.time - practice.day}}</span> دقیقه دیگه تمرین کن و <span class="fw-bold primary--text fs-6">{{timeGoal.daily.score}}</span> امتیاز بگیر</p>
+                    <p class="text-muted p-hint" v-else>تبریک میگم! تو <span class="fw-bold primary--text fs-6">{{timeGoal.daily.score}}</span> امتیاز تمرین امروز خودت رو دریافت کردی</p>
+                </template>
             </div>
 
             <div class="d-flex flex-column gap-1">
@@ -41,15 +43,18 @@
                     </template>
                 </v-progress-linear>
 
-                <p class="text-muted p-hint" v-if="(timeGoal.weekly.time - practice.week) > 0">تا آخر هفته <span class="fw-bold error--text fs-6">{{timeGoal.weekly.time - practice.week}}</span> دقیقه دیگه تمرین کن و <span class="fw-bold error--text fs-6">{{timeGoal.weekly.score}}</span> امتیاز بگیر</p>
-                <p class="text-muted p-hint" v-else>تبریک میگم! تو <span class="fw-bold primary--text fs-6">{{timeGoal.weekly.score}}</span> امتیاز تمرین این هفته خودت رو دریافت کردی</p>
+                <template v-if="timeGoal.weekly.time > 0">
+                    <p class="text-muted p-hint" v-if="(timeGoal.weekly.time - practice.week) > 0">تا آخر هفته <span class="fw-bold error--text fs-6">{{timeGoal.weekly.time - practice.week}}</span> دقیقه دیگه تمرین کن و <span class="fw-bold error--text fs-6">{{timeGoal.weekly.score}}</span> امتیاز بگیر</p>
+                    <p class="text-muted p-hint" v-else>تبریک میگم! تو <span class="fw-bold primary--text fs-6">{{timeGoal.weekly.score}}</span> امتیاز تمرین این هفته خودت رو دریافت کردی</p>
+                </template>
             </div>
 
         </div>
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 d-flex align-center justify-center gap-2 mb-3">
                 <p class="fw-bold">ثبت تمرین</p>
+                <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
             </div>
         
             <div class="col-10">
@@ -77,14 +82,39 @@
             </div>
         </div>
 
-        <!-- <v-sparkline
-            :labels="sl.labels"
-            :value="sl.value"
-            color="white"
-            line-width="2"
-            padding="16"
-            height="100"
-        ></v-sparkline> -->
+        <div class="row mt-6">
+            <div class="col-12 d-flex align-center justify-center gap-2 mb-3">
+                <p class="fw-bold">تمرین های گذشته شما</p>
+                <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
+            </div>
+            
+            <template v-if="practices.length">
+                <div class="col-6 text-center mb-5" v-for="pr in practices" :key="pr._id">
+                    <div class="d-flex flex-column align-center gap-2">
+                        <p>{{ pr.createdAt | calender }}</p>
+                        <v-progress-circular
+                            :rotate="-90"
+                            :size="100"
+                            :width="15"
+                            :value="Math.floor(((pr.time * 100) / timeGoal.daily.time))"
+                            color="error"
+                        >
+                            {{ pr.time }} دقیقه
+                        </v-progress-circular>
+                    </div>
+                </div>
+            </template>
+            <div class="col-12" v-else>
+                <v-alert
+                    border="left"
+                    colored-border
+                    type="error"
+                    elevation="1"
+                >
+                    هیچ تمرینی تا حالا ثبت نکردی
+                </v-alert>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -99,10 +129,6 @@ export default {
         return {
             loading: null,
             time: "",
-            // sl: {
-            //     labels: ['12am','3am','6am','9am','12pm','3pm','6pm','9pm'],
-            //     value: [200,675,410,390,310,460,250,240],
-            // },
             practice: {
                 day: 0,
                 week: 0

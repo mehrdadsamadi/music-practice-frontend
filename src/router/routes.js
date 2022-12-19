@@ -14,34 +14,34 @@ const routes = [
       component: () => import(/* webpackChunkName: "homeLayout" */ '@/layouts/home.layout.vue'),
       children: [
         {
-          path: "",
-          name: "home",
-          component: () => import(/* webpackChunkName: "home" */ '@/pages/user/user.home.page.vue')
+          path: "admin-instrument",
+          name: "adminInstrument",
+          component: () => import(/* webpackChunkName: "adminInstrument" */ '@/pages/admin/instrument.page.vue')
         },
         {
-          path: "instrument",
-          name: "instrument",
-          component: () => import(/* webpackChunkName: "instrument" */ '@/pages/instrument.page.vue')
+          path: "admin-gift",
+          name: "adminGift",
+          component: () => import(/* webpackChunkName: "adminGift" */ '@/pages/admin/gift.page.vue')
         },
         {
-          path: "gift",
-          name: "gift",
-          component: () => import(/* webpackChunkName: "gift" */ '@/pages/gift.page.vue')
+          path: "admin-festival",
+          name: "adminFestival",
+          component: () => import(/* webpackChunkName: "adminFestival" */ '@/pages/admin/festival.page.vue')
         },
         {
-          path: "festival",
-          name: "festival",
-          component: () => import(/* webpackChunkName: "festival" */ '@/pages/festival.page.vue')
+          path: "admin-message",
+          name: "adminMessage",
+          component: () => import(/* webpackChunkName: "adminMessage" */ '@/pages/admin/message.page.vue')
         },
         {
-          path: "message",
-          name: "message",
-          component: () => import(/* webpackChunkName: "message" */ '@/pages/message.page.vue')
+          path: "admin-timegoal",
+          name: "adminTimeGoal",
+          component: () => import(/* webpackChunkName: "adminTimeGoal" */ '@/pages/admin/timeGoal.page.vue')
         },
         {
-          path: "time-goal",
-          name: "timeGoal",
-          component: () => import(/* webpackChunkName: "timeGoal" */ '@/pages/timeGoal.page.vue')
+          path: "admin-practice",
+          name: "adminPractice",
+          component: () => import(/* webpackChunkName: "adminPractice" */ '@/pages/admin/practice.page.vue')
         },
         {
           path: "user-message",
@@ -52,6 +52,11 @@ const routes = [
           path: "user-practice",
           name: "userPractice",
           component: () => import(/* webpackChunkName: "userPractice" */ '@/pages/user/user.practice.page.vue')
+        },
+        {
+          path: "user-score",
+          name: "userScore",
+          component: () => import(/* webpackChunkName: "userScore" */ '@/pages/user/user.score.page.vue')
         },
       ]
     }

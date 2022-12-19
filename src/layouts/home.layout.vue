@@ -22,39 +22,46 @@
                 <v-list-item-group
                     active-class="primary--text"
                 >
-                    <v-list-item to="/instrument">
+                    <v-list-item to="/admin-instrument">
                         <v-list-item-icon>
                             <v-icon>mdi-plus-box-multiple-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل ساز ها</v-list-item-title>
                     </v-list-item>
                     
-                    <v-list-item to="/gift">
+                    <v-list-item to="/admin-gift">
                         <v-list-item-icon>
                             <v-icon>mdi-gift-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل هدیه ها</v-list-item-title>
                     </v-list-item>
                     
-                    <v-list-item to="/festival">
+                    <v-list-item to="/admin-festival">
                         <v-list-item-icon>
                             <v-icon>mdi-tournament</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل جشنواره ها</v-list-item-title>
                     </v-list-item>
                     
-                    <v-list-item to="/message">
+                    <v-list-item to="/admin-message">
                         <v-list-item-icon>
                             <v-icon>mdi-message-outline</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل پیام ها</v-list-item-title>
                     </v-list-item>
                     
-                    <v-list-item to="/time-goal">
+                    <v-list-item to="/admin-timegoal">
                         <v-list-item-icon>
                             <v-icon>mdi-timelapse</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>کنترل اهداف زمانی</v-list-item-title>
+                    </v-list-item>
+                    
+                    <v-list-item to="/admin-practice">
+                        <v-list-item-icon>
+                            <v-icon>mdi-music</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل تمرین ها</v-list-item-title>
                     </v-list-item>
 
                 </v-list-item-group>
@@ -83,7 +90,7 @@
                 <v-icon large style="transform: unset;">mdi-plus</v-icon>
             </v-btn>
 
-            <v-btn>
+            <v-btn to="/user-score">
                 <span>امتیاز ها</span>
 
                 <v-icon>mdi-numeric</v-icon>
@@ -127,6 +134,11 @@ export default {
         }
     },
     created() {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+        } else {
+            return this.prompt({title: "خطا", message: "برای استفاده از این اپلیکیشن ، با موبایل خود وارد شوید", show_btn: false})
+        }
         this.$store.dispatch("checkUnreadMessages")
     },
     computed: {
