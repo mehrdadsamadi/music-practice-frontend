@@ -347,7 +347,7 @@ export default {
 
             axios.get("gift/get-all")
                 .then(({data}) => {
-                    this.gifts = data.data.gifts
+                    this.gifts = data.data.gifts.filter(gift => gift.in_festival)
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.giftLoading = false)

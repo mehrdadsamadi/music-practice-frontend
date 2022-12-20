@@ -13,9 +13,9 @@
             bottom
             temporary
             style="height: unset"
-            v-if="$store.getters.get_state('user')?.role == 'ADMIN' "
         >
             <v-list
+                v-if="$store.getters.get_state('user')?.role == 'ADMIN' "
                 nav
                 dense
             >
@@ -66,6 +66,36 @@
 
                 </v-list-item-group>
             </v-list>
+
+            <v-list
+                v-if="$store.getters.get_state('user')?.role == 'USER' "
+                nav
+                dense
+            >
+                <v-list-item-group
+                    active-class="primary--text"
+                >
+                    <v-list-item to="/user-gift">
+                        <v-list-item-icon>
+                            <v-icon>mdi-gift-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>هدیه ها</v-list-item-title>
+                    </v-list-item>
+
+                </v-list-item-group>
+                
+                <v-list-item-group
+                    active-class="primary--text"
+                >
+                    <v-list-item to="/user-festival">
+                        <v-list-item-icon>
+                            <v-icon>mdi-tournament</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>جشنواره</v-list-item-title>
+                    </v-list-item>
+
+                </v-list-item-group>
+            </v-list>
         </v-navigation-drawer>
         <v-bottom-navigation
             v-model="navigation"
@@ -86,7 +116,7 @@
                 <v-icon>mdi-music</v-icon>
             </v-btn>
 
-            <v-btn color="error" v-if="$store.getters.get_state('user')?.role =='ADMIN'" @click.stop="drawer = !drawer" style="min-width: unset; min-height: unset; bottom: 2rem; height: 68px;" class="rounded-circle">
+            <v-btn color="error" @click.stop="drawer = !drawer" style="min-width: unset; min-height: unset; bottom: 2rem; height: 68px;" class="rounded-circle">
                 <v-icon large style="transform: unset;">mdi-plus</v-icon>
             </v-btn>
 

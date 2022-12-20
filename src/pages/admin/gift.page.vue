@@ -17,7 +17,7 @@
         >
 
             <template v-slot:no-data>
-                <p>فستیوالی برای نمایش وجود ندارد</p>
+                <p>هدیه ای برای نمایش وجود ندارد</p>
             </template>
 
             <template #[`item.in_festival`]="{item}">
@@ -76,6 +76,18 @@
                     </template>
                 </v-checkbox>
             </div>
+            <div class="col-12 mt-3" v-if="form.in_festival">
+                <v-autocomplete
+                    v-model="form.rank"
+                    :items="ranks"
+                    label="رتبه"
+                    hint="رتبه دریافت کننده هدیه"
+                    clearable
+                    dense
+                    filled
+                    rounded
+                ></v-autocomplete>
+            </div>
             <div class="col-12 w-100">
                 <v-btn
                     v-if="isUpdate"
@@ -111,13 +123,16 @@ export default {
                 { text: 'نام', value: 'name', sortable: false },
                 { text: 'حداقل امتیاز', value: 'min_score', sortable: false },
                 { text: 'استفاده در جشنواره', value: 'in_festival', sortable: false },
+                { text: 'رتبه', value: 'rank', sortable: false },
                 { text: "", value: "actions", sortable: false}
             ],
             gifts: [],
+            ranks: ["1","2","3","4"],
             form: {
                 name: "",
                 min_score: "",
                 in_festival: false,
+                rank: ""
             },
             loading: false,
             tableLoading: false,
@@ -149,17 +164,21 @@ export default {
                         .catch(err => this.handle_error(err))
                 })
         },
+        resetForm() {
+            this.form = {
+                name: "",
+                min_score: "",
+                in_festival: false,
+                rank: ""
+            }
+        },
         addGift() {
             this.loading = true
 
             axios.post("gift/add", this.form)
                 .then(({data}) => {
                     this.notify(data.data.message, "success")
-                    this.form = {
-                        name: "",
-                        min_score: "",
-                        in_festival: false,
-                    }
+                    this.resetForm()
                     this.getGifts()
                 })
                 .catch(err => this.handle_error(err))
@@ -189,11 +208,7 @@ export default {
                 .then(({data}) => {
                     this.notify(data.data.message, "success")
                     this.isUpdate = false
-                    this.form = {
-                        name: "",
-                        min_score: "",
-                        in_festival: false,
-                    }
+                    this.resetForm()
                     this.getGifts()
                 })
                 .catch(err => this.handle_error(err))

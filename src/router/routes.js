@@ -58,6 +58,16 @@ const routes = [
           name: "userScore",
           component: () => import(/* webpackChunkName: "userScore" */ '@/pages/user/user.score.page.vue')
         },
+        {
+          path: "user-gift",
+          name: "userGift",
+          component: () => import(/* webpackChunkName: "userGift" */ '@/pages/user/user.gift.page.vue')
+        },
+        {
+          path: "user-festival",
+          name: "userFestival",
+          component: () => import(/* webpackChunkName: "userFestival" */ '@/pages/user/user.festival.page.vue')
+        },
       ]
     }
 ]
