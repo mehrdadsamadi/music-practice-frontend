@@ -65,6 +65,8 @@ export default {
     },
     methods: {
         seen() {
+            this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
             axios.patch(`user/message/seen/${this.$store.state.user._id}`)
                 .then(({data}) => {
                     this.messages = data.data.messages
@@ -74,6 +76,7 @@ export default {
                     }, 500);
                 })
                 .catch(err => this.handle_error(err))
+                .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
         }
     },
 }

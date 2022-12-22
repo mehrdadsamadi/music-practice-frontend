@@ -23,6 +23,11 @@ export default new Vuex.Store({
 		resolve: null,
 	},
 
+	loading: {
+		title: '...در حال دریافت اطلاعات',
+		show: false
+	},
+
 	seenMessage: true,
 
 	user: null

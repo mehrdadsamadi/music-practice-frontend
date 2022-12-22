@@ -7,6 +7,7 @@
       
       <snackbar></snackbar>
       <prompt></prompt>
+      <loading></loading>
     </v-main>
 
   </v-app>
@@ -15,12 +16,14 @@
 <script>
 import Snackbar from "@/components/tools/Snackbar.vue";
 import Prompt from "@/components/tools/Prompt.vue";
+import Loading from "@/components/tools/LoadingDialog.vue";
 
 export default {
   name: 'App',
   components: {
     Snackbar,
-    Prompt
+    Prompt,
+    Loading
   },
   data: () => ({
     //

@@ -12,9 +12,10 @@
           <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
         </div>
 
-        <div class="col-6 mb-3" v-for="gift in gifts" :key="gift._id">
-          <div class="br-9 d-flex flex-column gap-3 py-3 px-4 error light--text">
+        <div class="col-11 mx-auto br-9 mb-3 gift-container" v-for="gift in gifts" :key="gift._id">
+          <div class="br-9 d-flex align-center py-3 px-4 primary--text">
             <h4 class="m-0">{{ gift.name }}</h4>
+            <div style="width: 2px; height: 1.5rem;" class="primary mx-3"></div>
             <p style="font-size: 13px;">حداقل امتیاز: <strong>{{gift.min_score}}</strong></p>
           </div>
         </div>
@@ -24,10 +25,12 @@
           <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
         </div>
 
-        <div class="col-6 mb-3" v-for="gift in festival_gifts" :key="gift._id">
-          <div class="br-9 d-flex flex-column gap-3 py-3 px-4 primary light--text">
+        <div class="col-11 mx-auto br-9 mb-3 gift-container" v-for="gift in festival_gifts" :key="gift._id">
+          <div class="br-9 d-flex align-center py-3 px-4 primary--text">
             <h4 class="m-0">{{ gift.name }}</h4>
+            <div style="width: 2px; height: 1.5rem;" class="primary mx-3"></div>
             <p style="font-size: 13px;">حداقل امتیاز: <strong>{{gift.min_score}}</strong></p>
+            <div style="width: 2px; height: 1.5rem;" class="primary mx-3"></div>
             <p style="font-size: 13px;">رتبه: <strong>{{gift.rank}}</strong></p>
           </div>
         </div>
@@ -55,16 +58,16 @@ export default {
     },
     methods: {
       getGifts() {
-          this.giftLoading = true
+        this.$store.commit("set_state", { group: "loading", field: "show", value: true })
 
-          axios.get("gift/get-all")
-              .then(({data}) => {
-                  this.gifts = data.data.gifts
-                  this.festival_gifts = this.gifts.filter(gift => gift.in_festival)
-                  this.gifts = this.gifts.filter(gift => !gift.in_festival)
-              })
-              .catch(err => this.handle_error(err))
-              .finally(() => this.giftLoading = false)
+        axios.get("gift/get-all")
+            .then(({data}) => {
+                this.gifts = data.data.gifts
+                this.festival_gifts = this.gifts.filter(gift => gift.in_festival)
+                this.gifts = this.gifts.filter(gift => !gift.in_festival)
+            })
+            .catch(err => this.handle_error(err))
+            .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
       },
     }
 }
@@ -73,5 +76,9 @@ export default {
 <style scoped>
 .v-application .headline {
   font-family: unset !important;
+}
+
+.gift-container {
+  box-shadow: 0px 2px 10px rgb(0 0 0 / 8%);
 }
 </style>

@@ -155,6 +155,7 @@ export default {
     methods: {
         getUsers() {
             this.userLoading = true
+            this.$store.commit("set_state", { group: "loading", field: "show", value: true })
 
             axios.get("user/get-all")
                 .then(({data}) => {
@@ -162,7 +163,10 @@ export default {
                     this.searchUsers = [...this.users]
                 })
                 .catch(err => this.handle_error(err))
-                .finally(() => this.userLoading = false)
+                .finally(() => {
+                    this.userLoading = false
+                    this.$store.commit("set_state", { group: "loading", field: "show", value: false })
+                })
         },
         search() {
             if (this.searchField.length == 0) {

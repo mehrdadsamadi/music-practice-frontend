@@ -22,6 +22,33 @@
 
           </template>
         </countDown>
+
+        <div class="point d-flex gap-2 mb-7">
+          <v-icon color="error" class="align-baseline">mdi-star</v-icon>
+          <p>در جشنواره ، امتیاز ها بر اساس میزان تمرین شما محاسبه میشود</p>
+        </div>
+
+        <div class="row gap-3">
+          <div class="col-11 mx-auto br-9 white border py-2 px-4 ranking-container">
+            <div class="d-flex align-center justify-content-between">
+              <p class="fw-bold error--text">رتبه</p>
+              <p class="primary--text">نام</p>
+              <p class="fw-bold error--text">امتیاز</p>
+              <p class="primary--text">ساز</p>
+            </div>
+          </div>
+
+          <v-divider class="m-0"></v-divider>
+
+          <div class="col-11 mx-auto br-9 white border py-3 px-4 ranking-container" v-for="(user, index) in ranking" :key="index">
+            <div class="d-flex align-center justify-content-between">
+              <h4 class="fw-bold error--text m-0">{{ index + 1 }}</h4>
+              <p class="primary--text">{{ user | fullname }}</p>
+              <h4 class="fw-bold error--text m-0">{{ user.score }}</h4>
+              <p class="text-muted" style="font-size: 12px;">{{ user.instrument }}</p>
+            </div>
+          </div>
+        </div>
       </template>
 
       <v-alert
@@ -61,26 +88,26 @@ export default {
     methods: {
       getFestival() {
           this.festivalLoading = true
+          this.$store.commit("set_state", { group: "loading", field: "show", value: true })
 
           axios.get("festival/active")
               .then(({data}) => {
                   this.festival = data.data.festival
                   if(this.festival) this.getRanking()
-                  else this.festivalLoading = false
+                  else this.$store.commit("set_state", { group: "loading", field: "show", value: false })
               })
               .catch(err => {
-                this.festivalLoading = false
+                this.$store.commit("set_state", { group: "loading", field: "show", value: false })
                 this.handle_error(err)
               })
       },
       getRanking() {
         axios.get(`festival/get-ranking/${this.festival._id}`)
           .then(({data}) => {
-            console.log(data);
             this.ranking = data.data.ranking
           })
           .catch(err => this.handle_error(err))
-          .finally(() => this.festivalLoading = false)
+          .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
 
       }
     },
@@ -90,6 +117,10 @@ export default {
 <style scoped>
 .v-application .headline {
   font-family: unset !important;
+}
+
+.ranking-container {
+  box-shadow: 0px 2px 10px rgb(0 0 0 / 8%);
 }
 
 li {

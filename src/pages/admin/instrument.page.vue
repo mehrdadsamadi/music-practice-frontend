@@ -86,13 +86,18 @@ export default {
     },
     methods: {
         getInstruments() {
+            this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
             this.tableLoading = true
             axios.get("instrument/get-all")
                 .then(({data}) => {
                     this.instruments = data.data.instruments
                 })
                 .catch(err => this.handle_error(err))
-                .finally(() => this.tableLoading = false)
+                .finally(() => {
+                    this.tableLoading = false
+                    this.$store.commit("set_state", { group: "loading", field: "show", value: false })
+                })
         },
         deleteInstroment(item) {
             this.prompt({title: "حذف", message: "برای حذف این ساز مطمعن هستید؟"})

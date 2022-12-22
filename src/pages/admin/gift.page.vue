@@ -145,13 +145,18 @@ export default {
     },
     methods: {
         getGifts() {
+            this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
             this.tableLoading = true
             axios.get("gift/get-all")
                 .then(({data}) => {
                     this.gifts = data.data.gifts
                 })
                 .catch(err => this.handle_error(err))
-                .finally(() => this.tableLoading = false)
+                .finally(() => {
+                    this.tableLoading = false
+                    this.$store.commit("set_state", { group: "loading", field: "show", value: false })
+                })
         },
         deleteGift(item) {
             this.prompt({title: "حذف", message: "برای حذف این هدیه مطمعن هستید؟"})

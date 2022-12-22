@@ -198,6 +198,8 @@ export default {
         }
     },
     created() {
+        this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
         this.getTimeGoals()
         this.getUsers()
     },
@@ -220,7 +222,10 @@ export default {
                     this.users = data.data.users
                 })
                 .catch(err => this.handle_error(err))
-                .finally(() => this.userLoading = false)
+                .finally(() => {
+                    this.userLoading = false
+                    this.$store.commit("set_state", { group: "loading", field: "show", value: false })
+                })
         },
         resetForm() {
             this.form = {

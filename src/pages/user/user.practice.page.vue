@@ -148,6 +148,8 @@ export default {
         }
     },
     created() {
+        this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
         this.getPractice()
         this.getTimeGoals()
     },
@@ -171,6 +173,7 @@ export default {
 
                 })
                 .catch(err => this.handle_error(err))
+                .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
         },
         addPractice() {
             this.loading = true
