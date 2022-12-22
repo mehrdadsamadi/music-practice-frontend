@@ -155,7 +155,7 @@ export default {
         getPractice() {
             axios.get("user/practice/get-all")
                 .then(({data}) => {
-                    this.practices = data.data.practices;
+                    this.practices = data.data.practices.reverse();
                     ["day", "week"].forEach(item => this.practice[item] = data.data.totalPractice[item]);
                 })
                 .catch(err => this.handle_error(err))

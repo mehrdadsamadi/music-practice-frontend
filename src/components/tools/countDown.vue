@@ -1,8 +1,6 @@
 <template>
     <div>
-        <slot v-bind="{time}">
-    
-        </slot>
+        <slot v-bind="{time}"></slot>
     </div>
 </template>
 
@@ -19,6 +17,9 @@ export default {
                 seconds: 0,
             },
             interval: null,
+            countDownDate: new Date(this.end).getTime(),
+            now: null,
+            distance: null,
         }
     },
     created() {
@@ -28,31 +29,33 @@ export default {
         clearInterval(this.interval);
     },
     methods: {
+        setTimeLeft() {
+            
+            // Get today's date and time
+            this.now = new Date().getTime();
+            
+            // Find the distance between now and the count down date
+            this.distance = this.countDownDate - this.now;
+            
+            // Time calculations for days, hours, minutes and seconds
+            this.time.days = Math.floor(this.distance / (1000 * 60 * 60 * 24));
+            this.time.hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.time.minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
+            this.time.seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
+            
+            // If the count down is finished, write some text
+            if (this.distance < 0) {
+                clearInterval(this.interval);
+                this.$emit("finish")
+            }
+        },
         timeLeft() {
-            let countDownDate = new Date(this.end).getTime();
+            
+            // this.countDownDate = new Date(this.end).getTime();
             
             if(this.end) {
                 // Update the count down every 1 second
-                this.interval = setInterval(function() {
-    
-                    // Get today's date and time
-                    let now = new Date().getTime();
-                    
-                    // Find the distance between now and the count down date
-                    let distance = countDownDate - now;
-                    
-                    // Time calculations for days, hours, minutes and seconds
-                    this.time.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    this.time.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    this.time.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    this.time.seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-                    // If the count down is finished, write some text
-                    if (distance < 0) {
-                        clearInterval(this.interval);
-                        this.$emit("finish")
-                    }
-                }, 1000);
+                this.interval = setInterval(this.setTimeLeft, 1000);
 
             }
         }

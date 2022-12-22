@@ -41,7 +41,7 @@ export default {
                 message: options.message,
                 accept_btn: options.accept_btn || "بله",
                 reject_btn: options.reject_btn || "خیر",
-                show_btn: options.show_btn || true,
+                show_btn: options.show_btn != undefined ? options.show_btn : true,
                 resolve,
                 show: true
             };
