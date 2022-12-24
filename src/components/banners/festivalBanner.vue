@@ -1,5 +1,5 @@
 <template>
-    <TransitionGroup name="list" tag="div" class="d-flex flex-column mb-2">
+    <TransitionGroup name="list" tag="div" class="d-flex flex-column gap-2 mb-2">
         <v-banner
             v-for="festival in activeFestivals" 
             :key="festival._id"
