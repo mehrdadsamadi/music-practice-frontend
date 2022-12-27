@@ -182,6 +182,7 @@ export default {
                 .then(() => {
                     axios.patch("user/practice/add", {time: this.time})
                         .then(({data}) => {
+                            this.$store.commit("set_state", {group: "user", field: "available_score", value: (data.data.score + this.$store.getters.get_state("user").available_score)})
                             this.time = ""
                             this.notify(data.data.message, "success")
                             this.getPractice()

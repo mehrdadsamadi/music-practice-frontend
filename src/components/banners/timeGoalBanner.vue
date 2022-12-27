@@ -7,7 +7,7 @@
             outlined
             rounded
         >
-            <div class="d-flex gap-2 align-center">
+            <div class="d-flex justify-content-between align-center">
                 <v-icon color="secondary">mdi-bullseye-arrow</v-icon>
                 
                 <p>هر {{timeGoal.period == 'daily' ? 'روز' : timeGoal.period == 'weekly' ? 'هفته' : 'ماه'}} {{timeGoal.time}} دقیقه تمرین کن و {{timeGoal.score}} امتیاز بگیر</p>

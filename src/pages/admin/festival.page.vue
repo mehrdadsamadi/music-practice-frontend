@@ -39,20 +39,13 @@
             </template>
 
             <template #[`item.gifts`]="{item}">
-                <!-- <v-chip
-                    v-for="(gift) in item.gifts" 
-                    :key="gift._id"
-                    v-text="gift.name"
-                    small
-                    class="mr-1"
-                    color="primary"
-                ></v-chip> -->
                 <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             color="primary"
                             dark
                             rounded
+                            outlined
                             small
                             v-bind="attrs"
                             v-on="on"
@@ -72,21 +65,13 @@
             </template>
 
             <template #[`item.users`]="{item}">
-
-                <!-- <v-chip
-                    v-for="(user) in item.users" 
-                    :key="user._id"
-                    small
-                    class="mr-1"
-                    color="secondary"
-                >{{user | fullname}}</v-chip> -->
-
                 <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn
                             color="primary"
                             dark
                             rounded
+                            outlined
                             small
                             v-bind="attrs"
                             v-on="on"

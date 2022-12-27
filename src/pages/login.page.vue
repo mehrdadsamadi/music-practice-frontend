@@ -39,7 +39,7 @@ export default {
         height: 634px;
         left: -240px;
         top: -358px;
-        opacity: 0.5;
+        /* opacity: 0.5; */
         z-index: 0;
     }
     .ellipse-2 {
@@ -48,7 +48,7 @@ export default {
         height: 634px;
         left: 0px;
         top: 569px;
-        opacity: 0.5;
+        /* opacity: 0.5; */
         z-index: 0;
     }
 </style>

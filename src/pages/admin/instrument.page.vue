@@ -28,7 +28,7 @@
 
             <template #[`item.actions`]="{ item }">
                 <v-icon
-                    @click="deleteInstroment(item)"
+                    @click="deleteInstrument(item)"
                 >
                     mdi-trash-can-outline
                 </v-icon>
@@ -99,7 +99,7 @@ export default {
                     this.$store.commit("set_state", { group: "loading", field: "show", value: false })
                 })
         },
-        deleteInstroment(item) {
+        deleteInstrument(item) {
             this.prompt({title: "حذف", message: "برای حذف این ساز مطمعن هستید؟"})
                 .then(() => {
                     axios.delete(`instrument/remove/${item._id}`)

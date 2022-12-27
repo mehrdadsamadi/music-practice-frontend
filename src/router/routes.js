@@ -44,6 +44,11 @@ const routes = [
           component: () => import(/* webpackChunkName: "adminPractice" */ '@/pages/admin/practice.page.vue')
         },
         {
+          path: "admin-user",
+          name: "adminUser",
+          component: () => import(/* webpackChunkName: "adminUser" */ '@/pages/admin/user.page.vue')
+        },
+        {
           path: "user-message",
           name: "userMessage",
           component: () => import(/* webpackChunkName: "userMessage" */ '@/pages/user/user.message.page.vue')
@@ -62,6 +67,11 @@ const routes = [
           path: "user-gift",
           name: "userGift",
           component: () => import(/* webpackChunkName: "userGift" */ '@/pages/user/user.gift.page.vue')
+        },
+        {
+          path: "user-myGifts",
+          name: "userMyGifts",
+          component: () => import(/* webpackChunkName: "userMyGifts" */ '@/pages/user/user.myGifts.page.vue')
         },
         {
           path: "user-festival",

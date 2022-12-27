@@ -63,6 +63,13 @@
                         </v-list-item-icon>
                         <v-list-item-title>کنترل تمرین ها</v-list-item-title>
                     </v-list-item>
+                    
+                    <v-list-item to="/admin-user">
+                        <v-list-item-icon>
+                            <v-icon>mdi-account-group-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>کنترل کاربر ها</v-list-item-title>
+                    </v-list-item>
 
                 </v-list-item-group>
             </v-list>
@@ -75,6 +82,18 @@
                 <v-list-item-group
                     active-class="primary--text"
                 >
+                    <v-list-item to="/user-myGifts">
+                        <v-list-item-icon>
+                            <v-icon>mdi-cart-check</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>هدیه های من</v-list-item-title>
+                    </v-list-item>
+
+                </v-list-item-group>
+             
+                <v-list-item-group
+                    active-class="primary--text"
+                >
                     <v-list-item to="/user-gift">
                         <v-list-item-icon>
                             <v-icon>mdi-gift-outline</v-icon>
@@ -83,7 +102,7 @@
                     </v-list-item>
 
                 </v-list-item-group>
-                
+
                 <v-list-item-group
                     active-class="primary--text"
                 >
