@@ -102,7 +102,7 @@ export default {
                         data: data.data.user
                     })
                     
-                    this.$router.push("/")
+                    this.$router.push("/user-practice")
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.loading = false)

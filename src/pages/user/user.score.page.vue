@@ -54,7 +54,7 @@ export default {
 
         axios.get("user/score/get-all-users-score")
             .then(({data}) => {
-                this.users = data.data.users.filter(user => user.role != "ADMIN")
+                this.users = data.data.users
             })
             .catch(err => this.handle_error(err))
             .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))

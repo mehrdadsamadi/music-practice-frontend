@@ -159,7 +159,7 @@ export default {
 
             axios.get("user/get-all")
                 .then(({data}) => {
-                    this.users = data.data.users.filter(user => user.role != "ADMIN")
+                    this.users = data.data.users
                     this.searchUsers = [...this.users]
                 })
                 .catch(err => this.handle_error(err))

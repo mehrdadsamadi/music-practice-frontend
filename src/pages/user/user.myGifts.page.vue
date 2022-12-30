@@ -6,14 +6,26 @@
           <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
       </div>
 
-      <div class="d-flex flex-column gap-2">
-        <div class="col-11 mx-auto br-9 gift-container" v-for="gift in gifts" :key="gift._id">
-          <div class="d-flex flex-column align-center justify-center primary--text my-2">
-            <h5 class="m-1">{{ gift.name }}</h5>
-            <p style="font-size: 13px;">حداقل امتیاز: <strong>{{gift.min_score}}</strong></p>
+      <template v-if="gifts.length">
+        <div class="d-flex flex-column gap-2">
+          <div class="col-11 mx-auto br-9 gift-container" v-for="gift in gifts" :key="gift._id">
+            <div class="d-flex flex-column align-center justify-center primary--text my-2">
+              <h5 class="m-1">{{ gift.gift.name }}</h5>
+              <p style="font-size: 13px;">حداقل امتیاز: <strong>{{gift.gift.min_score}}</strong></p>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
+
+      <v-alert
+        v-else
+        border="left"
+        colored-border
+        type="error"
+        elevation="1"
+      >
+        هیج هدیه ای تهیه نکردی
+      </v-alert>
 
     </div>
 </template>

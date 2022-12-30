@@ -207,7 +207,7 @@ export default {
         getTimeGoals() {
             this.timeGoalLoading = true
 
-            axios.get("timeGoal/get-all")
+            axios.get("timeGoal/get-all-admin")
                 .then(({data}) => {
                     this.timeGoals = data.data.timeGoals
                 })

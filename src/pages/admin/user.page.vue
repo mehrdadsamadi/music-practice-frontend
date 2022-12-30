@@ -6,9 +6,26 @@
             <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
         </div>
 
+        <div class="row">
+            <div class="col-12 mt-3 mb-5">
+                <v-text-field
+                    v-model="searchField"
+                    label="جستجو هنرجو"
+                    class="w-100"
+                    background-color="light"
+                    @input="search"
+                    hide-details
+                    filled
+                    rounded
+                    dense
+                ></v-text-field>
+            </div>
+        </div>
+
+
         <v-data-table
             :headers="headers"
-            :items="users"
+            :items="searchUsers"
             :items-per-page="10"
             :loading="tableLoading"
             loading-text="در حال دریافت اطلاعات ..."
@@ -47,7 +64,16 @@
                             v-for="(gift) in item.purchase_gifts" 
                             :key="gift._id"
                         >
-                            <v-list-item-title>{{ gift.name }}</v-list-item-title>
+                            <v-list-item-title>
+                                <v-checkbox
+                                    @change="receiveGift(item._id, gift.gift._id, gift.is_receive)"
+                                    v-model="gift.is_receive"
+                                    :label="gift.gift.name"
+                                    hide-details=""
+                                ></v-checkbox>
+                                <p class="text-muted mt-1" style="font-size: 10px;">{{ gift.createdAt | calender }}</p>
+                                <v-divider class="mb-0"></v-divider>
+                            </v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -85,8 +111,10 @@ export default {
                 { text: "", value: "actions", sortable: false}
             ],
             users: [],
+            searchUsers: [],
             loading: false,
             tableLoading: false,
+            searchField: "",
         }
     },
     created() {
@@ -98,10 +126,27 @@ export default {
 
             axios.get("user/get-all")
                 .then(({data}) => {
-                    this.users = data.data.users.filter(user => user.role != "ADMIN")
+                    this.users = data.data.users
+                    this.searchUsers = [...this.users]
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
+        },
+        search() {
+            if (this.searchField.length == 0) {
+                return this.searchUsers = [...this.users]
+            }
+            this.searchUsers = this.users.filter(user => {
+                if(user.first_name.includes(this.searchField) || user.last_name.includes(this.searchField)) return user
+            })
+        },
+        receiveGift(userId, giftId, status) {
+            axios.patch(`gift/receive/${userId}/${giftId}/${status}`)
+                .then(({data}) => {
+                    this.notify(data.data.message, "success")
+                    this.getUsers()
+                })
+                .catch(err => this.handle_error(err))
         },
         deleteUser(item) {
 
