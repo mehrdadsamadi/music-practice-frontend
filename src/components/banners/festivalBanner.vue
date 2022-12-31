@@ -9,7 +9,7 @@
         >
             <div class="d-flex gap-2 align-center">
                 <v-icon color="error">mdi-party-popper</v-icon>
-                <p>همین حالا در جشنواره تمرین {{festival.name}} شرکت کن و {{...festival.gifts.map(gift => `${gift.name} ، `)}} رو برنده شو</p>
+                <p>همین حالا در جشنواره تمرین {{festival.name}} شرکت کن و {{...festival.gifts.map(gift => `${gift.name} و ... `)}} رو برنده شو</p>
                     
             </div>
             <template #actions>

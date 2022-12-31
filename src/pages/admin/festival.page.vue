@@ -82,9 +82,9 @@
                     <v-list>
                         <v-list-item
                             v-for="(user) in item.users" 
-                            :key="user._id"
+                            :key="user.user._id"
                         >
-                            <v-list-item-title>{{user | fullname}}</v-list-item-title>
+                            <v-list-item-title>{{user.user | fullname}}</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
