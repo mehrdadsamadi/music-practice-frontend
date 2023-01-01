@@ -35,11 +35,14 @@ export default {
             festivalLoading: false,
             festivals: [],
             activeFestivals: [],
-            currentDate: new Date().toISOString().slice(0, 10),
+            currentDate: null,
             addToFestivalLoading: false
         }
     },
     created() {
+        let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        this.currentDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1).slice(0, 10);
+
         this.getFestivals()
     },
     methods: {

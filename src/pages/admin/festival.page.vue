@@ -17,7 +17,7 @@
         >
 
             <template v-slot:no-data>
-                <p>فستیوالی برای نمایش وجود ندارد</p>
+                <p>جشنواره ای برای نمایش وجود ندارد</p>
             </template>
 
             <template #[`item.name`] = "{item}">
@@ -92,6 +92,14 @@
 
             <template #[`item.actions`]="{ item }">
                 <v-icon
+                    v-if="currentDate > item.end_in && item?.given_gifts === false"
+                    @click="givingGifts(item)"
+                    class="ml-3"
+                    color="primary"
+                >
+                    mdi-gift-outline
+                </v-icon>
+                <v-icon
                     @click="setUpdateFestival(item)"
                     class="ml-3"
                 >
@@ -109,7 +117,7 @@
             <div class="col-12">
                 <v-text-field
                     v-model="form.name"
-                    label="نام فستیوال"
+                    label="نام جشنواره"
                     class="w-100"
                     background-color="light"
                     hide-details
@@ -257,7 +265,7 @@
                     block
                     :loading="loading"
                     @click="updateFestival"
-                    v-text="'ویرایش فستیوال'"
+                    v-text="'ویرایش جشنواره'"
                 ></v-btn>
                 <v-btn
                     v-else
@@ -266,7 +274,7 @@
                     block
                     :loading="loading"
                     @click="addFestival"
-                    v-text="'ایجاد فستیوال'"
+                    v-text="'ایجاد جشنواره'"
                 ></v-btn>
             </div>
         </div>
@@ -309,11 +317,15 @@ export default {
             userLoading: false,
             tableLoading: false,
             isUpdate: false,
-            updateId: ""
+            updateId: "",
+            currentDate: null,
         }
     },
     created() {
         this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
+        let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+        this.currentDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1).slice(0, 10);
 
         this.getFestivals()
         this.getGifts()
@@ -361,8 +373,28 @@ export default {
                 users: [],
             }
         },
+        givingGifts(item) {
+            this.prompt({title: "هدیه", message: "برای اهدای هدایا مطمعن هستید؟"})
+                .then(() => {
+                    this.$store.commit("set_state", { group: "loading", field: "show", value: true })
+
+                    axios.get(`festival/giving-gifts/${item._id}`)
+                        .then(({data}) => {
+                            const {errors} = data.data
+                            if(errors.length) {
+                                for (const err of errors) {
+                                    this.notify(err, "error")
+                                }
+                            }
+                            this.notify(data.data.message, "success")
+                            this.getFestivals()
+                        })
+                        .catch(err => this.handle_error(err))
+                        .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
+                })
+        },
         deleteFestival(item) {
-            this.prompt({title: "حذف", message: "برای حذف این فستیوال مطمعن هستید؟"})
+            this.prompt({title: "حذف", message: "برای حذف این جشنواره مطمعن هستید؟"})
                 .then(() => {
                     axios.delete(`festival/remove/${item._id}`)
                         .then(({data}) => {

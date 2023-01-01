@@ -4,7 +4,7 @@
         class="pwa"
         content-class="pwa-snackbar px-1 py-0"
         v-model="pwa_dialog"
-        :timeout="100000"
+        :timeout="-1"
         color="primary"
     >
             <v-btn @click="pwa_dialog = false" light icon color="white" aria-label="بستن">
