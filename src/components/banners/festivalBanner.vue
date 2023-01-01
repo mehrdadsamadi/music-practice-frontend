@@ -1,28 +1,29 @@
 <template>
-    <TransitionGroup name="list" tag="div" class="d-flex flex-column gap-2 mb-2">
-        <v-banner
-            v-for="festival in activeFestivals" 
-            :key="festival._id"
-            color="white"
-            outlined
-            rounded
-        >
-            <div class="d-flex gap-2 align-center">
-                <v-icon color="error">mdi-party-popper</v-icon>
-                <p>همین حالا در جشنواره تمرین {{festival.name}} شرکت کن و {{...festival.gifts.map(gift => `${gift.name} و ... `)}} رو برنده شو</p>
-                    
-            </div>
-            <template #actions>
-                <v-btn
-                    outlined
-                    color="error"
-                    @click="addToFestival(festival._id)"
-                >
-                    شرکت میکنم
-                </v-btn>
-            </template>
-        </v-banner>
-    </TransitionGroup>
+    <div>
+        <div class="d-flex flex-column gap-2 mb-2" v-if="activeFestival">
+            <v-banner
+                :key="festival._id"
+                color="white"
+                outlined
+                rounded
+            >
+                <div class="d-flex gap-2 align-center">
+                    <v-icon color="error">mdi-party-popper</v-icon>
+                    <p>همین حالا در جشنواره تمرین {{festival.name}} شرکت کن و {{...festival.gifts.map(gift => `${gift.name} و ... `)}} رو برنده شو</p>
+                        
+                </div>
+                <template #actions>
+                    <v-btn
+                        outlined
+                        color="error"
+                        @click="addToFestival(festival._id)"
+                    >
+                        شرکت میکنم
+                    </v-btn>
+                </template>
+            </v-banner>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -33,8 +34,8 @@ export default {
     data() {
         return {
             festivalLoading: false,
-            festivals: [],
-            activeFestivals: [],
+            festival: null,
+            activeFestival: false,
             currentDate: null,
             addToFestivalLoading: false
         }
@@ -43,41 +44,44 @@ export default {
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         this.currentDate = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1).slice(0, 10);
 
-        this.getFestivals()
+        this.getFestival()
     },
     methods: {
-        getFestivals() {
+        getFestival() {
             this.festivalLoading = true
 
-            axios.get("festival/get-all")
+            axios.get("festival/active")
                 .then(({data}) => {
-                    this.festivals = data.data.festivals
+                    this.festival = data.data.festival
                     this.checkExistUserInFestival()
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.festivalLoading = false)
         },
         checkExistUserInFestival() {
-            this.activeFestivals = []
+            this.activeFestival = false
             
-            this.festivals.forEach(festival => {
-                if(festival.users.length) {
-                    const notExistUser = festival.users.every(user => user.user != this.$store.getters.get_state("user")._id)
-                    if(notExistUser && this.currentDate >= festival.start_in && this.currentDate <= festival.end_in) {
-                        this.activeFestivals.push(festival)
-                    }
-                } else if(this.currentDate >= festival.start_in && this.currentDate <= festival.end_in) {
-                    this.activeFestivals.push(festival)
+            if(this.festival.users.length) {
+                const notExistUser = this.festival.users.every(user => user.user != this.$store.getters.get_state("user")._id)
+                
+                if(notExistUser && this.currentDate >= this.festival.start_in && this.currentDate <= this.festival.end_in) {
+                    this.activeFestival = true
                 }
-            })
+            } else if(this.currentDate >= this.festival.start_in && this.currentDate <= this.festival.end_in) {
+                this.activeFestival = true
+            }
         },
         addToFestival(festivalId) {
             this.addToFestivalLoading = true
 
             axios.patch(`/festival/add-user/${festivalId}`)
                 .then(({data}) => {
+                    this.activeFestival = false
                     this.notify(data.data.message,"success")
-                    this.getFestivals()
+                    
+                    if(this.$router.history.current.path != "/user-festival") {
+                        this.$router.push("/user-festival")
+                    }
                 })
                 .catch(err => this.handle_error(err))
                 .finally(() => this.addToFestivalLoading = false)
@@ -87,13 +91,4 @@ export default {
 </script>
 
 <style scoped>
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.3s ease;
-}
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
 </style>

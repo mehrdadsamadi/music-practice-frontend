@@ -6,6 +6,16 @@
             <v-divider style="border-color: rgba(0,0,0,1);"></v-divider>
         </div>
 
+        <div class="errors-section" v-if="errors.length">
+            <v-alert
+                v-for="(error, index) in errors" :key="index"
+                dense
+                outlined
+                type="error"
+                v-text="error"
+            ></v-alert>
+        </div>
+
         <v-data-table
             :headers="headers"
             :items="festivals"
@@ -319,6 +329,8 @@ export default {
             isUpdate: false,
             updateId: "",
             currentDate: null,
+            errors: [],
+            errorsTimeOut: null
         }
     },
     created() {
@@ -330,6 +342,9 @@ export default {
         this.getFestivals()
         this.getGifts()
         this.getUsers()
+    },
+    beforeDestroy() {
+        clearTimeout(this.errorsTimeOut)
     },
     methods: {
         getFestivals() {
@@ -380,12 +395,10 @@ export default {
 
                     axios.get(`festival/giving-gifts/${item._id}`)
                         .then(({data}) => {
-                            const {errors} = data.data
-                            if(errors.length) {
-                                for (const err of errors) {
-                                    this.notify(err, "error")
-                                }
-                            }
+                            this.errors = data.data.errors
+                            this.errorsTimeOut = setTimeout(() => {
+                                this.errors = []
+                            }, 10000);
                             this.notify(data.data.message, "success")
                             this.getFestivals()
                         })
@@ -422,10 +435,11 @@ export default {
 
             axios.get(`festival/get/${item._id}`)
                 .then(({data}) => {
-                    
                     Object.keys(this.form).forEach(field => {
                         this.form[field] = data.data.festival[field]
-                    })
+                    });
+                    
+                    this.form["users"] = data.data.festival.users.map(item => item.user);
 
                     this.updateId = item._id
 
@@ -450,6 +464,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>
