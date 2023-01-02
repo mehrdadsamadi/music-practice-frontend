@@ -62,11 +62,13 @@ export default {
             this.activeFestival = false
             
             if(this.festival.users.length) {
-                const notExistUser = this.festival.users.every(user => user.user != this.$store.getters.get_state("user")._id)
+                
+                const notExistUser = this.festival.users.for(user => user.user._id != this.$store.getters.get_state("user")._id)
                 
                 if(notExistUser && this.currentDate >= this.festival.start_in && this.currentDate <= this.festival.end_in) {
                     this.activeFestival = true
                 }
+                
             } else if(this.currentDate >= this.festival.start_in && this.currentDate <= this.festival.end_in) {
                 this.activeFestival = true
             }

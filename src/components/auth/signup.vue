@@ -11,6 +11,7 @@
             placeholder="09123456789"
             class="w-100"
             background-color="light"
+            :loading="mobileLoading"
             :disabled="disable.mobile"
             :rules="rules.mobile"
             @input="checkMobileLength"
@@ -46,6 +47,7 @@ export default {
         return {
             second: 120,
             interval: null,
+            mobileLoading: false,
             rules: {
                 mobile: [
                     v => !!v || 'شماره موبایل را وارد کنید',
@@ -72,6 +74,8 @@ export default {
                 this.getOtp()
         },
         getOtp(resend = false) {
+            this.mobileLoading = true
+
             axios.post("/auth/get-otp", {mobile: this.form.mobile, resend})
                 .then(({data}) => {
                     this.notify(data.data.message, "success")
@@ -84,6 +88,7 @@ export default {
                 .catch(err => {
                     this.handle_error(err)
                 })
+                .finally(() => this.mobileLoading = false)
         },
         checkOtp() {
             axios.post("/auth/check-otp", this.form)

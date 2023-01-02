@@ -4,7 +4,7 @@ module.exports = defineConfig({
     'vuetify'
   ],
   pwa: {
-    name: "اپلیکیشن تمرین موسیقی",
+    name: "MP Apps",
     themeColor: "#EAEAEA",
     backgroundColor: "#61C0BF",
     startUrl: ".",

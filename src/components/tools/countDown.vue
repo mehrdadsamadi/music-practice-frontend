@@ -17,7 +17,8 @@ export default {
                 seconds: 0,
             },
             interval: null,
-            countDownDate: new Date(this.end).getTime(),
+            // countDownDate: new Date(this.end).getTime(),
+            countDownDate: new Date(this.end).setHours(23, 59, 59, 999),
             now: null,
             distance: null,
         }
@@ -30,7 +31,6 @@ export default {
     },
     methods: {
         setTimeLeft() {
-            
             // Get today's date and time
             this.now = new Date().getTime();
             
@@ -39,7 +39,7 @@ export default {
             
             // Time calculations for days, hours, minutes and seconds
             this.time.days = Math.floor(this.distance / (1000 * 60 * 60 * 24));
-            this.time.hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.time.hours = Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) - 2;
             this.time.minutes = Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60));
             this.time.seconds = Math.floor((this.distance % (1000 * 60)) / 1000);
             
