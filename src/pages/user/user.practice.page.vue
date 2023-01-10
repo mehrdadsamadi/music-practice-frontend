@@ -176,10 +176,10 @@ export default {
                 .finally(() => this.$store.commit("set_state", { group: "loading", field: "show", value: false }))
         },
         addPractice() {
-            this.loading = true
-
+            
             this.prompt({title: "ثبت", message: "برای ثبت زمان تمرین خود مطمعن هستید؟"})
                 .then(() => {
+                    this.loading = true
                     axios.patch("user/practice/add", {time: this.time})
                         .then(({data}) => {
                             this.$store.commit("set_state", {group: "user", field: "available_score", value: (data.data.score + this.$store.getters.get_state("user").available_score)})

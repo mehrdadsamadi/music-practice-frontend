@@ -8,7 +8,7 @@
       <snackbar></snackbar>
       <prompt></prompt>
       <loading></loading>
-      <Pwa></Pwa>
+      <!-- <Pwa></Pwa> -->
 
     </v-main>
 
@@ -19,7 +19,7 @@
 import Snackbar from "@/components/tools/Snackbar.vue";
 import Prompt from "@/components/tools/Prompt.vue";
 import Loading from "@/components/tools/LoadingDialog.vue";
-import Pwa from "./components/tools/pwa.vue";
+// import Pwa from "./components/tools/pwa.vue";
 
 export default {
   name: 'App',
@@ -27,7 +27,7 @@ export default {
     Snackbar,
     Prompt,
     Loading,
-    Pwa
+    // Pwa
   },
   data: () => ({
     //

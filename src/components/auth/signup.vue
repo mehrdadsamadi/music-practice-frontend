@@ -21,7 +21,7 @@
 
         <div v-if="!disable.otp">
             <span v-if="second !== 0" class="light--text" v-text="second + ' ثانیه '"></span>
-            <v-btn v-else @click="getOtp(true)" color="error" text v-text="'برای ارسال مجدد کد کلیک کنید'"></v-btn>
+            <v-btn v-else @click="getOtp(true)" color="light" text v-text="'برای ارسال مجدد کد کلیک کنید'"></v-btn>
         </div>
 
         <v-otp-input
@@ -75,6 +75,7 @@ export default {
         },
         getOtp(resend = false) {
             this.mobileLoading = true
+            this.disable.mobile = true
 
             axios.post("/auth/get-otp", {mobile: this.form.mobile, resend})
                 .then(({data}) => {
@@ -87,6 +88,7 @@ export default {
                 })
                 .catch(err => {
                     this.handle_error(err)
+                    this.disable.mobile = false
                 })
                 .finally(() => this.mobileLoading = false)
         },

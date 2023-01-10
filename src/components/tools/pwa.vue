@@ -38,8 +38,18 @@
         deferred_prompt: null,
     }),
   
-    mounted() {
-      this.handle_custom_pwa_installation();
+    // mounted() {
+    //   this.handle_custom_pwa_installation();
+    // },
+
+    created() {
+        console.log(window);
+        window.addEventListener("beforeinstallprompt", e => {
+            console.log("hello",e);
+            e.preventDefault();
+            this.deferred_prompt = e;
+            this.pwa_dialog = true;
+        });
     },
 
     methods: {
@@ -59,9 +69,9 @@
         },
 
         install_pwa() {
-            this.pwa_dialog = false;
             this.deferred_prompt.prompt();
             this.deferred_prompt.userChoice.then(res => {
+                this.pwa_dialog = false;
 
                 // res.outcome == "accepted" &&
                 //     this.$cookies.set("APP_INSTALLED", 1, {

@@ -17,7 +17,7 @@ import exception_handler from '@/mixins/exception_handler';
 Vue.config.productionTip = false;
 
 axios.defaults.headers.common['Accept'] = "application/json";
-axios.defaults.baseURL = "http://localhost:5000"
+axios.defaults.baseURL = "http://mp-app.ir"
 axios.interceptors.response.use(function (response) {
 	return response;
 }, function (error) {
